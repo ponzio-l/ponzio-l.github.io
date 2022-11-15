@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="主要介绍为什么要引入RNN，RNN是什么，它有什么应用，以及其变体和优缺点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初学RNN">
+<meta property="og:url" content="http://pj-blog.com/2022/11/15/21-46-57/index.html">
+<meta property="og:site_name" content="pj&#39;s blog">
+<meta property="og:description" content="主要介绍为什么要引入RNN，RNN是什么，它有什么应用，以及其变体和优缺点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%AF%BC%E5%87%BA.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/RNN-%E5%AF%BC%E5%87%BA.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/rnn.svg">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/H%E5%85%AC%E5%BC%8F.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/O%E5%85%AC%E5%BC%8F.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/1-N.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/N-1.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/N-N.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/N-M.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/N-M2.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/BRNN.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/15/21-46-57/DRNN.png">
+<meta property="article:published_time" content="2022-11-15T13:46:57.000Z">
+<meta property="article:modified_time" content="2022-11-15T15:15:46.638Z">
+<meta property="article:author" content="pj">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://pj-blog.com/2022/11/15/21-46-57/%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%AF%BC%E5%87%BA.png">
+
+
+<link rel="canonical" href="http://pj-blog.com/2022/11/15/21-46-57/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2022/11/15/21-46-57/","path":"2022/11/15/21-46-57/","title":"初学RNN"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>初学RNN | pj's blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">pj's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Fortune favors the bold.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FNN"><span class="nav-number">1.</span> <span class="nav-text">FNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN"><span class="nav-number">2.</span> <span class="nav-text">RNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E8%A7%82%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.1.</span> <span class="nav-text">直观结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.2.</span> <span class="nav-text">内部结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E4%BD%93"><span class="nav-number">2.4.</span> <span class="nav-text">变体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BRNN%EF%BC%88Bidirectional-RNN%EF%BC%89"><span class="nav-number">2.4.1.</span> <span class="nav-text">BRNN（Bidirectional RNN）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DRNN%EF%BC%88Deep-RNN%EF%BC%89"><span class="nav-number">2.4.2.</span> <span class="nav-text">DRNN（Deep RNN）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">2.5.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.5.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="nav-number">2.5.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">主要参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pj"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">pj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/11/15/21-46-57/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="pj">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="pj's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="初学RNN | pj's blog">
+      <meta itemprop="description" content="主要介绍为什么要引入RNN，RNN是什么，它有什么应用，以及其变体和优缺点。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          初学RNN
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-11-15 21:46:57 / 修改时间：23:15:46" itemprop="dateCreated datePublished" datetime="2022-11-15T21:46:57+08:00">2022-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">主要介绍为什么要引入RNN，RNN是什么，它有什么应用，以及其变体和优缺点。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="FNN"><a href="#FNN" class="headerlink" title="FNN"></a>FNN</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>FNN（Feedforward Neural Network），即前馈神经网络，它是网络信息单向传递的一种神经网络，数据由输入层开始输入，依次流入隐藏层各层神经元，最终由输出层输出。其当前的输出只由当前的输入决定，任何层的输出都不会影响同级层。</p>
+<div align="center"> 
+<img src="/2022/11/15/21-46-57/前馈神经网络-导出.png" width="60%"> 
+</div> 
+
+<p>以上图所示的神经网络为例，它在训练过程中通过前向计算和反向传播，不断通过调整权重系数W<sub>i</sub>和W<sub>o</sub>来实现学习目的。通常情况下，前馈神经网络会在空间上进行延伸，通过增加隐藏层层数与隐藏层神经元个数追求更好的学习效果。</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>前馈神经网络假定元素之间是相互独立的，对于序列数据，只能单独地处理序列中的每个元素，前一个输入与后一个输入在处理过程中也是完全独立的，无法捕获序列之间的依赖关系。</p>
+<h1 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><p>RNN（Recurrent Neural Network），即循环神经网络，它是一种主要用来处理序列数据的神经网络，它关注了隐藏层每个神经元在时间维度上的变化，其中循环说成递推可能会更直观一些，本质就是同一个网络接收当前时刻的输入和上一时刻隐藏层神经元的输出，沿着时序反复迭代以实现对序列数据的学习。</p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><h3 id="直观结构"><a href="#直观结构" class="headerlink" title="直观结构"></a>直观结构</h3><div align="center"> 
+<img src="/2022/11/15/21-46-57/RNN-导出.png" width="60%"> 
+</div> 
+
+<p>在上图中， RNN 的每个时刻，输入层的x<sub>1</sub>和x<sub>2</sub>都在W<sub>i</sub>的作用下传入隐藏层，上一时刻的隐藏层输出也通过W<sub>h</sub>传入当前的隐藏层，因此它相当于可以间接访问之前的所有输入，这就是为什么说RNN可以保存记忆。</p>
+<h3 id="内部结构"><a href="#内部结构" class="headerlink" title="内部结构"></a>内部结构</h3><div align="center"> 
+<img src="/2022/11/15/21-46-57/rnn.svg" width="100%"> 
+</div> 
+
+<p>上图展示了RNN在三个相邻时刻的计算逻辑。 在任意时刻t，隐藏层状态的计算可以被视为：</p>
+<ol>
+<li>拼接t时刻的输入X<sub>t</sub>和t−1时刻的隐藏层状态H<sub>t−1</sub>，得到新的张量[X<sub>t</sub>,H<sub>t-1</sub>]；</li>
+<li>将新的张量送入带有激活函数φ的全连接层，激活函数常用tanh或者relu， 全连接层的输出是t时刻的隐藏层状态H<sub>t</sub>。</li>
+</ol>
+<p>在t时刻，隐藏层状态H<sub>t</sub>的计算公式为：</p>
+<div align="center"> 
+<img src="/2022/11/15/21-46-57/H公式.png" width="100%"> 
+</div> 
+
+<p>在t时刻，输出层的输出计算公式为：</p>
+<div align="center"> 
+<img src="/2022/11/15/21-46-57/O公式.png" width="100%"> 
+</div> 
+
+<p>参数说明：</p>
+<ul>
+<li>X<sub>t</sub>是t时刻的输入，它是一个向量；</li>
+<li>W<sub>i</sub>是输入层到隐藏层的权重矩阵；</li>
+<li>H<sub>t-1</sub>是t-1时刻的隐藏层状态，在初始时刻，会给隐藏层设置初始状态H<sub>0</sub>；</li>
+<li>W<sub>h</sub>是隐藏层上一时刻的值作用于当前时刻的权重矩阵；</li>
+<li>W<sub>o</sub>是隐藏层到输出层的权重矩阵；</li>
+<li>b<sub>h</sub>是和b<sub>o</sub>是偏置系数。</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>在不同时刻，RNN总是使用这些模型参数，其参数开销不会随着时间的增加而增加。</li>
+<li>隐藏层状态中X<sub>t</sub>W<sub>i</sub>+H<sub>t-1</sub>W<sub>h</sub>的计算，相当于X<sub>t</sub>和H<sub>t-1</sub>的拼接与W<sub>i</sub>和W<sub>h</sub>的拼接进行矩阵乘法。</li>
+<li>RNN和前馈神经网络一样，也是通过反向传播来更新权重，以达到学习的效果。</li>
+</ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>1-N类型，输入一张图片，输出一段话或者一段音乐，利用它可以实现看图说话。</p>
+<div align="center"> 
+<img src="/2022/11/15/21-46-57/1-N.png" width="50%"> 
+</div> 
+
+<p>N-1类型，输入一段话，输出对其情感类别的判断，利用它可以实现文本分类。</p>
+<div align="center"> 
+<img src="/2022/11/15/21-46-57/N-1.png" width="50%"> 
+</div> 
+
+<p>N-N类型，输入和输出是等长的序列，可以用来生成等长的诗歌。</p>
+<div align="center"> 
+<img src="/2022/11/15/21-46-57/N-N.png" width="50%"> 
+</div> 
+
+<p>N-M类型，输入和输出是不等长的序列，也被叫做Encoder-Decoder模型或Seq2Seq模型，可以应用在机器翻译、文本摘要、阅读理解等多个领域上。</p>
+<div align="center"> 
+<img src="/2022/11/15/21-46-57/N-M.png" width="50%"> 
+</div> 
+
+<div align="center"> 
+<img src="/2022/11/15/21-46-57/N-M2.png" width="90%"> 
+</div> 
+
+<h2 id="变体"><a href="#变体" class="headerlink" title="变体"></a>变体</h2><h3 id="BRNN（Bidirectional-RNN）"><a href="#BRNN（Bidirectional-RNN）" class="headerlink" title="BRNN（Bidirectional RNN）"></a>BRNN（Bidirectional RNN）</h3><div align="center"> 
+<img src="/2022/11/15/21-46-57/BRNN.png" width="100%"> 
+</div> 
+
+<p>RNN的一个主要问题是只能从以往的输入进行学习，也就是只能理解上下文中的上文，为了拥有更好的学习效果，因此提出了双向RNN，也就是BRNN。 BRNN会在原有RNN的基础上再加一个隐藏层，该隐藏层的状态是从后向前传播的，从序列的终点开始读取，称为后向层；而原有的从序列起点开始读取的隐藏层称为前向层。 BRNN的隐藏层状态的计算可以被视为：</p>
+<ol>
+<li>根据输入序列计算前向层隐藏层状态H<sub>1</sub>；</li>
+<li>将输入序列反转，计算后向层隐藏层状态H<sub>2</sub>；</li>
+<li>将H<sub>1</sub>和H<sub>2</sub>拼接起来，得到最终隐藏层状态H，H&#x3D;[H<sub>1</sub>,H<sub>2</sub>]。</li>
+</ol>
+<p>注意，只有能拿到整个输入序列时才能使用BRNN 。</p>
+<h3 id="DRNN（Deep-RNN）"><a href="#DRNN（Deep-RNN）" class="headerlink" title="DRNN（Deep RNN）"></a>DRNN（Deep RNN）</h3><div align="center"> 
+<img src="/2022/11/15/21-46-57/DRNN.png" width="50%"> 
+</div> 
+
+<p>与前馈神经网络不同，RNN因为考虑了时间维度，隐藏层达到三层就算多的了。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>RNN可以处理序列信息，且内部结构简单，对计算资源的要求低。</li>
+</ul>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li><p>RNN是一个时序模型，每个时刻的计算都依赖于前一时刻的结果，计算速度慢；</p>
+</li>
+<li><p>RNN由于梯度消失，难以支持长序列，不能捕获序列中长期的依赖关系；</p>
+</li>
+<li><p>RNN网络在时间维度上是串联的，离当前时间越远的隐藏层输出，对当前隐藏层的输出影响越小，它无法根据不同词本身的重要性对当前的输出产生影响；</p>
+</li>
+<li><p>RNN对所有输入是同等对待的，提取了所有的信息，没有区分有用信息、无用信息和辅助信息。但是如果某个网络可以根据不同输入的重要性，选择性地丢弃和记忆，就可以使得有效信息即使距离当前时间较远，也能有较大影响，实现长期记忆，这就引出了LSTM。</p>
+</li>
+</ul>
+<h1 id="主要参考"><a href="#主要参考" class="headerlink" title="主要参考"></a>主要参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://zh-v2.d2l.ai/chapter_recurrent-neural-networks/rnn.html#subsec-rnn-w-hidden-states">《动手学深度学习》第8章第4节</a>；</li>
+<li>网络上相关资料。</li>
+</ul>
+
+    </div>
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>pj
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://pj-blog.com/2022/11/15/21-46-57/" title="初学RNN">http://pj-blog.com/2022/11/15/21-46-57/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    如有错漏之处，恳请指正！
+  </li>
+</ul>
+</div>
+
+
+        
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NzYyMC8zNDA4NA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pj</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>
