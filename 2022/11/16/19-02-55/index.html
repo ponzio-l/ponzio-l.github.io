@@ -19,23 +19,36 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="pj&#39;s blog">
-<meta property="og:url" content="http://pj-blog.com/index.html">
+    <meta name="description" content="can’t open file ‘upload.py’: [Errno 2] No such file or directory 分析：upload.py文件在pycnblog源代码文件夹下，而cmd命令的执行路径是C:\WINDOWS\System32，所以提示找不到文件。 解决方法： 1、首先，以管理员身份打开cmd窗口。  2、然后，找到pycnblog源代码所在的路径，并在该路径下重新执行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Metaweblog上传MD文件到博客园遇到的几个问题">
+<meta property="og:url" content="http://pj-blog.com/2022/11/16/19-02-55/index.html">
 <meta property="og:site_name" content="pj&#39;s blog">
+<meta property="og:description" content="can’t open file ‘upload.py’: [Errno 2] No such file or directory 分析：upload.py文件在pycnblog源代码文件夹下，而cmd命令的执行路径是C:\WINDOWS\System32，所以提示找不到文件。 解决方法： 1、首先，以管理员身份打开cmd窗口。  2、然后，找到pycnblog源代码所在的路径，并在该路径下重新执行">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/q1.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a11.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a12.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a2.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a3.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a41.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a42.png">
+<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a43.png">
+<meta property="article:published_time" content="2022-11-16T11:02:55.000Z">
+<meta property="article:modified_time" content="2022-11-16T11:56:54.283Z">
 <meta property="article:author" content="pj">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://pj-blog.com/2022/11/16/19-02-55/q1.png">
 
 
-<link rel="canonical" href="http://pj-blog.com/">
+<link rel="canonical" href="http://pj-blog.com/2022/11/16/19-02-55/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2022/11/16/19-02-55/","path":"2022/11/16/19-02-55/","title":"使用Metaweblog上传MD文件到博客园遇到的几个问题"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>pj's blog</title>
+<title>使用Metaweblog上传MD文件到博客园遇到的几个问题 | pj's blog</title>
   
 
 
@@ -70,7 +83,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">pj's blog</h1>
+      <p class="site-title">pj's blog</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Fortune favors the bold.</p>
@@ -124,7 +137,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -137,6 +150,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#can%E2%80%99t-open-file-%E2%80%98upload-py%E2%80%99-Errno-2-No-such-file-or-directory"><span class="nav-number">1.</span> <span class="nav-text">can’t open file ‘upload.py’: [Errno 2] No such file or directory</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AttributeError-module-%E2%80%98asyncio%E2%80%99-has-no-attribute-%E2%80%98run%E2%80%99"><span class="nav-number">2.</span> <span class="nav-text">AttributeError: module ‘asyncio’ has no attribute ‘run’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AttributeError-module-%E2%80%98asyncio%E2%80%99-has-no-attribute-%E2%80%98create-task%E2%80%99"><span class="nav-number">3.</span> <span class="nav-text">AttributeError: module ‘asyncio’ has no attribute ‘create_task’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xmlrpc-client-Fault%EF%BC%9A-lt-Fault401%EF%BC%9A%E2%80%99%E8%AF%B7%E9%85%8D%E7%BD%AE%E6%AD%A3%E7%A1%AE%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D%E4%B8%8E%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C-access-token-%EF%BC%8C%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95%E5%B7%B2%E5%8F%96%E6%B6%88%EF%BC%8C%E8%AF%B7%E5%9C%A8%E5%AF%86%E7%A0%81%E6%A1%86%E4%B8%AD%E8%BE%93%E5%85%A5%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C%E2%80%A6"><span class="nav-number">4.</span> <span class="nav-text">xmlrpc.client.Fault：&lt;Fault401：’请配置正确的用户名与访问令牌(access token)，密码登录已取消，请在密码框中输入访问令牌…</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,16 +187,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/11/16/19-02-55/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -196,13 +211,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | pj's blog">
+      <meta itemprop="name" content="使用Metaweblog上传MD文件到博客园遇到的几个问题 | pj's blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/16/19-02-55/" class="post-title-link" itemprop="url">使用Metaweblog上传MD文件到博客园遇到的几个问题</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          使用Metaweblog上传MD文件到博客园遇到的几个问题
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -226,6 +241,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
     <span class="post-meta-break"></span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
@@ -250,7 +272,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="can’t-open-file-‘upload-py’-Errno-2-No-such-file-or-directory"><a href="#can’t-open-file-‘upload-py’-Errno-2-No-such-file-or-directory" class="headerlink" title="can’t open file ‘upload.py’: [Errno 2] No such file or directory"></a>can’t open file ‘upload.py’: [Errno 2] No such file or directory</h1><p><img src="/2022/11/16/19-02-55/q1.png" alt="q1"></p>
+        <h1 id="can’t-open-file-‘upload-py’-Errno-2-No-such-file-or-directory"><a href="#can’t-open-file-‘upload-py’-Errno-2-No-such-file-or-directory" class="headerlink" title="can’t open file ‘upload.py’: [Errno 2] No such file or directory"></a>can’t open file ‘upload.py’: [Errno 2] No such file or directory</h1><p><img src="/2022/11/16/19-02-55/q1.png" alt="q1"></p>
 <p>分析：upload.py文件在pycnblog源代码文件夹下，而cmd命令的执行路径是C:\WINDOWS\System32，所以提示找不到文件。</p>
 <p>解决方法：</p>
 <p>1、首先，以管理员身份打开cmd窗口。</p>
@@ -282,10 +304,16 @@
 <p><img src="/2022/11/16/19-02-55/a43.png" alt="a43"></p>
 <p>4、将config.yaml中的password字段值改成该token值。</p>
 
-      
     </div>
 
 <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
   
 </div>
 
@@ -294,113 +322,36 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>pj
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://pj-blog.com/2022/11/16/19-02-55/" title="使用Metaweblog上传MD文件到博客园遇到的几个问题">http://pj-blog.com/2022/11/16/19-02-55/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    如有错漏之处，恳请指正！
+  </li>
+</ul>
 </div>
 
 
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/11/15/21-46-57/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="pj">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="pj's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | pj's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/15/21-46-57/" class="post-title-link" itemprop="url">初学RNN</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-11-15 21:46:57 / 修改时间：23:15:46" itemprop="dateCreated datePublished" datetime="2022-11-15T21:46:57+08:00">2022-11-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>主要介绍为什么要引入RNN，RNN是什么，它有什么应用，以及其变体和优缺点。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/11/15/21-46-57/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-<div>
-  
-</div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/15/21-46-57/" rel="prev" title="初学RNN">
+                  <i class="fa fa-chevron-left"></i> 初学RNN
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -409,6 +360,8 @@
 
 
 
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NzYyMC8zNDA4NA=="></div>
 </div>
   </main>
 
