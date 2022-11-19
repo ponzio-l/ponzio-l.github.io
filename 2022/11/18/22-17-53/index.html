@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="主要介绍了RNN的官方实现以及手写复现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNN的PyTorch实现">
+<meta property="og:url" content="http://pj-blog.com/2022/11/18/22-17-53/index.html">
+<meta property="og:site_name" content="pj&#39;s blog">
+<meta property="og:description" content="主要介绍了RNN的官方实现以及手写复现。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-18T14:17:53.000Z">
+<meta property="article:modified_time" content="2022-11-19T11:57:52.340Z">
+<meta property="article:author" content="pj">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://pj-blog.com/2022/11/18/22-17-53/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2022/11/18/22-17-53/","path":"2022/11/18/22-17-53/","title":"RNN的PyTorch实现"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RNN的PyTorch实现 | pj's blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">pj's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Fortune favors the bold.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">官方实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%8B%E5%86%99%E5%A4%8D%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">手写复现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">复现代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">验证正确性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">主要参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pj"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">pj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/11/18/22-17-53/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="pj">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="pj's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RNN的PyTorch实现 | pj's blog">
+      <meta itemprop="description" content="主要介绍了RNN的官方实现以及手写复现。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RNN的PyTorch实现
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-18 22:17:53" itemprop="dateCreated datePublished" datetime="2022-11-18T22:17:53+08:00">2022-11-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-19 19:57:52" itemprop="dateModified" datetime="2022-11-19T19:57:52+08:00">2022-11-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">主要介绍了RNN的官方实现以及手写复现。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="官方实现"><a href="#官方实现" class="headerlink" title="官方实现"></a>官方实现</h1><p>PyTorch已经实现了一个RNN类，就在torch.nn工具包中，通过torch.nn.RNN调用。</p>
+<p>使用步骤：</p>
+<ol>
+<li>实例化类；</li>
+<li>将输入层向量和隐藏层向量初始状态值传给实例化后的对象，获得RNN的输出。</li>
+</ol>
+<p>在实例化该类时，需要传入如下属性：</p>
+<ul>
+<li>input_size：输入层神经元个数；</li>
+<li>hidden_size：每层隐藏层的神经元个数；</li>
+<li>num_layers：隐藏层层数，默认设置为1层；</li>
+<li>nonlinearity：激活函数的选择，可选是’tanh’或者’relu’，默认设置为’tanh’；</li>
+<li>bias：偏置系数，可选是’True’或者’False’，默认设置为’True’；</li>
+<li>batch_first：可选是’True’或者’False’，默认设置为’False’；</li>
+<li>dropout：默认设置为0。若为非0，将在除最后一层的每层RNN输出上引入Dropout层，dropout概率就是该非零值；</li>
+<li>bidirectional：默认设置为False。若为True，即为双向RNN。</li>
+</ul>
+<p>RNN的输入有两个，一个是input，一个是h<sub>0</sub>。input就是输入层向量，h<sub>0</sub>就是隐藏层初始状态值。<br>若没有采用批量输入，则输入层向量的形状为(L, H<sub>in</sub>)；<br>若采用批量输入，且batch_first为False，则输入层向量的形状为(L, N, H<sub>in</sub>)；<br>若采用批量输入，且batch_first为True，则输入层向量的形状为(N, L, H<sub>in</sub>)；<br>对于(N, L, H<sub>in</sub>)，在文本输入时，可以按顺序理解为(每次输入几句话，每句话有几个字，每个字由多少维的向量表示)。</p>
+<p>若没有采用批量输入，则隐藏层向量的形状为(D * num_layers, H<sub>out</sub>)；<br>若采用批量输入，则隐藏层向量的形状为(D * num_layers, N, H<sub>out</sub>)；<br>注意，batch_first的设置对隐藏层向量的形状不起作用。</p>
+<p>RNN的输出有两个，一个是output，一个是h<sub>n</sub>。output包含了每个时间步最后一层的隐藏层状态，h<sub>n</sub>包含了最后一个时间步每层的隐藏层状态。<br>若没有采用批量输入，则输出层向量的形状为(L, D * H<sub>out</sub>)；<br>若采用批量输入，且batch_first为False，则输出层向量的形状为(L, N, D * H<sub>out</sub>)；<br>若采用批量输入，且batch_first为True，则输出层向量的形状为(N, L, D * H<sub>out</sub>)。</p>
+<p>参数解释：</p>
+<ul>
+<li>N代表的是批量大小；</li>
+<li>L代表的是输入的序列长度；</li>
+<li>若是双向RNN，则D的值为2；若是单向RNN，则D的值为1；</li>
+<li>H<sub>in</sub>在数值上是输入层神经元个数；</li>
+<li>H<sub>out</sub>在数值上是隐藏层神经元个数。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line">rnn = nn.RNN(<span class="number">10</span>, <span class="number">20</span>, <span class="number">1</span>, batch_first=<span class="literal">True</span>)  <span class="comment"># 实例化一个单向单层RNN</span></span><br><span class="line"><span class="built_in">input</span> = torch.randn(<span class="number">5</span>, <span class="number">3</span>, <span class="number">10</span>)</span><br><span class="line">h0 = torch.randn(<span class="number">1</span>, <span class="number">5</span>, <span class="number">20</span>)</span><br><span class="line">output, hn = rnn(<span class="built_in">input</span>, h0)</span><br></pre></td></tr></table></figure>
+
+<h1 id="手写复现"><a href="#手写复现" class="headerlink" title="手写复现"></a>手写复现</h1><h2 id="复现代码"><a href="#复现代码" class="headerlink" title="复现代码"></a>复现代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyRNN</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, input_size, hidden_size</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.input_size = input_size</span><br><span class="line">        self.hidden_size = hidden_size</span><br><span class="line">        self.weight_ih = torch.randn(self.hidden_size, self.input_size) * <span class="number">0.01</span></span><br><span class="line">        self.weight_hh = torch.randn(self.hidden_size, self.hidden_size) * <span class="number">0.01</span></span><br><span class="line">        self.bias_ih = torch.randn(self.hidden_size)</span><br><span class="line">        self.bias_hh = torch.randn(self.hidden_size)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span>, h0</span>):</span><br><span class="line">        N, L, input_size = <span class="built_in">input</span>.shape</span><br><span class="line">        output = torch.zeros(N, L, self.hidden_size)</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(L):</span><br><span class="line">            x = <span class="built_in">input</span>[:, t, :].unsqueeze(<span class="number">2</span>)  <span class="comment"># 获得当前时刻的输入特征，[N, input_size, 1]。unsqueeze(n)，在第n维上增加一维</span></span><br><span class="line">            w_ih_batch = self.weight_ih.unsqueeze(<span class="number">0</span>).tile(N, <span class="number">1</span>, <span class="number">1</span>)  <span class="comment"># [N, hidden_size, input_size]</span></span><br><span class="line">            w_hh_batch = self.weight_hh.unsqueeze(<span class="number">0</span>).tile(N, <span class="number">1</span>, <span class="number">1</span>)  <span class="comment"># [N, hidden_size, hidden_size]</span></span><br><span class="line">            w_times_x = torch.bmm(w_ih_batch, x).squeeze(-<span class="number">1</span>)  <span class="comment"># [N, hidden_size]。squeeze(n)，在第n维上减小一维</span></span><br><span class="line">            w_times_h = torch.bmm(w_hh_batch, h0.unsqueeze(<span class="number">2</span>)).squeeze(-<span class="number">1</span>)  <span class="comment"># [N, hidden_size]</span></span><br><span class="line">            h0 = torch.tanh(w_times_x + self.bias_ih  + w_times_h + self.bias_hh)</span><br><span class="line">            output[:, t, :] = h0</span><br><span class="line">        <span class="keyword">return</span> output, h0.unsqueeze(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="验证正确性"><a href="#验证正确性" class="headerlink" title="验证正确性"></a>验证正确性</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_rnn = MyRNN(<span class="number">10</span>, <span class="number">20</span>)</span><br><span class="line"><span class="built_in">input</span> = torch.randn(<span class="number">5</span>, <span class="number">3</span>, <span class="number">10</span>)</span><br><span class="line">h0 = torch.randn(<span class="number">5</span>, <span class="number">20</span>)</span><br><span class="line">my_output, my_hn = my_rnn(<span class="built_in">input</span>, h0)</span><br><span class="line"><span class="built_in">print</span>(output.shape == my_output.shape, hn.shape == my_hn.shape)</span><br></pre></td></tr></table></figure>
+
+<pre><code>True True
+</code></pre>
+<h1 id="主要参考"><a href="#主要参考" class="headerlink" title="主要参考"></a>主要参考</h1><p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/generated/torch.nn.RNN.html#torch.nn.RNN">官方说明文档</a></p>
+
+    </div>
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>pj
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://pj-blog.com/2022/11/18/22-17-53/" title="RNN的PyTorch实现">http://pj-blog.com/2022/11/18/22-17-53/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    如有错漏之处，恳请指正！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/16/19-02-55/" rel="prev" title="使用Metaweblog上传MD文件到博客园遇到的几个问题">
+                  <i class="fa fa-chevron-left"></i> 使用Metaweblog上传MD文件到博客园遇到的几个问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NzYyMC8zNDA4NA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pj</span>
+</div>
+<div class="wordcount">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        站点总访问量 :<span id="busuanzi_value_site_pv"></span>次
+      </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-chart-line"></i>
+          </span>
+          <span title="站点总字数">6k</span>
+        </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-coffee"></i>
+          </span>
+          <span title="站点阅读时长">5 分钟</span>
+        </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>
