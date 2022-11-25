@@ -19,36 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="主要介绍使用Metaweblog上传MD文件到博客园遇到的四个问题。">
+    <meta name="description" content="主要介绍在Python中使用Process创建子进程遇到的问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Metaweblog上传MD文件到博客园遇到的几个问题">
-<meta property="og:url" content="http://pj-blog.com/2022/11/16/19-02-55/index.html">
+<meta property="og:title" content="在Python中使用Process创建子进程遇到的问题">
+<meta property="og:url" content="http://pj-blog.com/2022/11/25/14-24-51/index.html">
 <meta property="og:site_name" content="pj&#39;s blog">
-<meta property="og:description" content="主要介绍使用Metaweblog上传MD文件到博客园遇到的四个问题。">
+<meta property="og:description" content="主要介绍在Python中使用Process创建子进程遇到的问题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/q1.png">
-<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a11.png">
-<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a12.png">
-<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a2.png">
-<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a3.png">
-<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a41.png">
-<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a42.png">
-<meta property="og:image" content="http://pj-blog.com/2022/11/16/19-02-55/a43.png">
-<meta property="article:published_time" content="2022-11-16T11:02:55.000Z">
-<meta property="article:modified_time" content="2022-11-16T13:31:09.917Z">
+<meta property="article:published_time" content="2022-11-25T06:24:51.000Z">
+<meta property="article:modified_time" content="2022-11-25T06:33:44.537Z">
 <meta property="article:author" content="pj">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://pj-blog.com/2022/11/16/19-02-55/q1.png">
 
 
-<link rel="canonical" href="http://pj-blog.com/2022/11/16/19-02-55/">
+<link rel="canonical" href="http://pj-blog.com/2022/11/25/14-24-51/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2022/11/16/19-02-55/","path":"2022/11/16/19-02-55/","title":"使用Metaweblog上传MD文件到博客园遇到的几个问题"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2022/11/25/14-24-51/","path":"2022/11/25/14-24-51/","title":"在Python中使用Process创建子进程遇到的问题"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>使用Metaweblog上传MD文件到博客园遇到的几个问题 | pj's blog</title>
+<title>在Python中使用Process创建子进程遇到的问题 | pj's blog</title>
   
 
 
@@ -150,7 +141,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#can%E2%80%99t-open-file-%E2%80%98upload-py%E2%80%99-Errno-2-No-such-file-or-directory"><span class="nav-number">1.</span> <span class="nav-text">can’t open file ‘upload.py’: [Errno 2] No such file or directory</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AttributeError-module-%E2%80%98asyncio%E2%80%99-has-no-attribute-%E2%80%98run%E2%80%99"><span class="nav-number">2.</span> <span class="nav-text">AttributeError: module ‘asyncio’ has no attribute ‘run’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AttributeError-module-%E2%80%98asyncio%E2%80%99-has-no-attribute-%E2%80%98create-task%E2%80%99"><span class="nav-number">3.</span> <span class="nav-text">AttributeError: module ‘asyncio’ has no attribute ‘create_task’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xmlrpc-client-Fault%EF%BC%9A-lt-Fault401%EF%BC%9A%E2%80%99%E8%AF%B7%E9%85%8D%E7%BD%AE%E6%AD%A3%E7%A1%AE%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D%E4%B8%8E%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C-access-token-%EF%BC%8C%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95%E5%B7%B2%E5%8F%96%E6%B6%88%EF%BC%8C%E8%AF%B7%E5%9C%A8%E5%AF%86%E7%A0%81%E6%A1%86%E4%B8%AD%E8%BE%93%E5%85%A5%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C%E2%80%A6"><span class="nav-number">4.</span> <span class="nav-text">xmlrpc.client.Fault：&lt;Fault401：’请配置正确的用户名与访问令牌(access token)，密码登录已取消，请在密码框中输入访问令牌…</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AA%E4%BD%BF%E7%94%A8%E8%AF%A5%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.</span> <span class="nav-text">未使用该语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">结果示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%A5%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.</span> <span class="nav-text">使用该语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">2.1.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">2.2.</span> <span class="nav-text">结果示例</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -198,7 +189,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/11/16/19-02-55/">
+    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/11/25/14-24-51/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -211,12 +202,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="使用Metaweblog上传MD文件到博客园遇到的几个问题 | pj's blog">
-      <meta itemprop="description" content="主要介绍使用Metaweblog上传MD文件到博客园遇到的四个问题。">
+      <meta itemprop="name" content="在Python中使用Process创建子进程遇到的问题 | pj's blog">
+      <meta itemprop="description" content="主要介绍在Python中使用Process创建子进程遇到的问题。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          使用Metaweblog上传MD文件到博客园遇到的几个问题
+          在Python中使用Process创建子进程遇到的问题
         </h1>
 
         <div class="post-meta-container">
@@ -228,7 +219,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-11-16 19:02:55 / 修改时间：21:31:09" itemprop="dateCreated datePublished" datetime="2022-11-16T19:02:55+08:00">2022-11-16</time>
+      <time title="创建时间：2022-11-25 14:24:51 / 修改时间：14:33:44" itemprop="dateCreated datePublished" datetime="2022-11-25T14:24:51+08:00">2022-11-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -254,7 +245,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>939</span>
+      <span>1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -265,7 +256,7 @@
     </span>
 </div>
 
-            <div class="post-description">主要介绍使用Metaweblog上传MD文件到博客园遇到的四个问题。</div>
+            <div class="post-description">主要介绍在Python中使用Process创建子进程遇到的问题。</div>
         </div>
       </header>
 
@@ -273,38 +264,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="can’t-open-file-‘upload-py’-Errno-2-No-such-file-or-directory"><a href="#can’t-open-file-‘upload-py’-Errno-2-No-such-file-or-directory" class="headerlink" title="can’t open file ‘upload.py’: [Errno 2] No such file or directory"></a>can’t open file ‘upload.py’: [Errno 2] No such file or directory</h1><p><img src="/2022/11/16/19-02-55/q1.png" alt="q1"></p>
-<p>分析：upload.py文件在pycnblog源代码文件夹下，而cmd命令的执行路径是C:\WINDOWS\System32，所以提示找不到文件。</p>
-<p>解决方法：</p>
-<p>1、首先，以管理员身份打开cmd窗口。</p>
-<p><img src="/2022/11/16/19-02-55/a11.png" alt="a11"></p>
-<p>2、然后，找到pycnblog源代码所在的路径，并在该路径下重新执行命令。</p>
-<p><img src="/2022/11/16/19-02-55/a12.png" alt="a12"></p>
-<h1 id="AttributeError-module-‘asyncio’-has-no-attribute-‘run’"><a href="#AttributeError-module-‘asyncio’-has-no-attribute-‘run’" class="headerlink" title="AttributeError: module ‘asyncio’ has no attribute ‘run’"></a>AttributeError: module ‘asyncio’ has no attribute ‘run’</h1><p>分析：这是由于Python中asyncio版本不兼容导致的。</p>
-<p>解决方法：（任选一种方法即可）</p>
-<ul>
-<li>法一：将Python版本升级至3.7及以上。</li>
-<li>法二：打开upload.py文件，将报错的run函数注释或者删除，并在下方添加以下语句。</li>
-</ul>
-<p><code>loop = asyncio.get_event_loop()</code></p>
-<p><code> result = loop.run_until_complete()</code></p>
-<p><img src="/2022/11/16/19-02-55/a2.png" alt="a2"></p>
-<h1 id="AttributeError-module-‘asyncio’-has-no-attribute-‘create-task’"><a href="#AttributeError-module-‘asyncio’-has-no-attribute-‘create-task’" class="headerlink" title="AttributeError: module ‘asyncio’ has no attribute ‘create_task’"></a>AttributeError: module ‘asyncio’ has no attribute ‘create_task’</h1><p>分析：这同样是由于Python中asyncio版本不兼容导致的。</p>
-<p>解决方法：（任选一种方法即可）</p>
-<ul>
-<li>将Python版本升级至3.7及以上。</li>
-<li>打开upload.py文件，将报错的create_task函数改成ensure_future函数。</li>
-</ul>
-<p><img src="/2022/11/16/19-02-55/a3.png" alt="a3"></p>
-<h1 id="xmlrpc-client-Fault：-lt-Fault401：’请配置正确的用户名与访问令牌-access-token-，密码登录已取消，请在密码框中输入访问令牌…"><a href="#xmlrpc-client-Fault：-lt-Fault401：’请配置正确的用户名与访问令牌-access-token-，密码登录已取消，请在密码框中输入访问令牌…" class="headerlink" title="xmlrpc.client.Fault：&lt;Fault401：’请配置正确的用户名与访问令牌(access token)，密码登录已取消，请在密码框中输入访问令牌…"></a>xmlrpc.client.Fault：&lt;Fault401：’请配置正确的用户名与访问令牌(access token)，密码登录已取消，请在密码框中输入访问令牌…</h1><p>分析：博客园取消了密码登录，改成了token登录。</p>
-<p>解决方法：根据提示，打开源码文件夹中的config.yaml配置文件，把里面的password字段中原来写的密码值改成博客园的token就行。token在博客园设置页面最底部其他设置那栏里面，如果之前没有生成过token，新生成一个即可。</p>
-<p>1、在首页点击管理；</p>
-<p><img src="/2022/11/16/19-02-55/a41.png" alt="a41"></p>
-<p>2、点击设置；</p>
-<p><img src="/2022/11/16/19-02-55/a42.png" alt="a42"></p>
-<p>3、鼠标拖到页面最下方，找到其他设置，将它点开，MetaWeblog访问令牌就是要找的token。</p>
-<p><img src="/2022/11/16/19-02-55/a43.png" alt="a43"></p>
-<p>4、将config.yaml中的password字段值改成该token值。</p>
+        <p>假如使用Process创建子进程，那么在最后的函数调用时需要加上if _<em>name</em>_ &#x3D;&#x3D; “__main__”:语句，否则会报错。</p>
+<h1 id="未使用该语句"><a href="#未使用该语句" class="headerlink" title="未使用该语句"></a>未使用该语句</h1><h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_input</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;start print info!&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Process(target=test_input).start()</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果示例"><a href="#结果示例" class="headerlink" title="结果示例"></a>结果示例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">RuntimeError: </span><br><span class="line">        An attempt has been made to start a new process before the</span><br><span class="line">        current process has finished its bootstrapping phase.</span><br><span class="line"></span><br><span class="line">        This probably means that you are not using fork to start your</span><br><span class="line">        child processes and you have forgotten to use the proper idiom</span><br><span class="line">        in the main module:</span><br><span class="line"></span><br><span class="line">            if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">                freeze_support()</span><br><span class="line">                ...</span><br><span class="line"></span><br><span class="line">        The &quot;freeze_support()&quot; line can be omitted if the program</span><br><span class="line">        is not going to be frozen to produce an executable.</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用该语句"><a href="#使用该语句" class="headerlink" title="使用该语句"></a>使用该语句</h1><h2 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_input</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;start print info!&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    Process(target=test_input).start()</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果示例-1"><a href="#结果示例-1" class="headerlink" title="结果示例"></a>结果示例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start print info!</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -333,7 +301,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://pj-blog.com/2022/11/16/19-02-55/" title="使用Metaweblog上传MD文件到博客园遇到的几个问题">http://pj-blog.com/2022/11/16/19-02-55/</a>
+      <a href="http://pj-blog.com/2022/11/25/14-24-51/" title="在Python中使用Process创建子进程遇到的问题">http://pj-blog.com/2022/11/25/14-24-51/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -347,14 +315,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/11/15/21-46-57/" rel="prev" title="初学RNN">
-                  <i class="fa fa-chevron-left"></i> 初学RNN
+                <a href="/2022/11/25/10-58-00/" rel="prev" title="如何在Python中的子进程获取键盘输入">
+                  <i class="fa fa-chevron-left"></i> 如何在Python中的子进程获取键盘输入
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/11/18/22-17-53/" rel="next" title="RNN的PyTorch实现">
-                  RNN的PyTorch实现 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
