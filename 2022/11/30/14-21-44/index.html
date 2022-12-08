@@ -19,27 +19,25 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="主要介绍在Python中使用Process创建子进程遇到的问题。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="在Python中使用Process创建子进程遇到的问题">
-<meta property="og:url" content="http://pj-blog.com/2022/11/25/14-24-51/index.html">
+    <meta property="og:type" content="article">
+<meta property="og:title" content="使用RNN实现文本生成">
+<meta property="og:url" content="http://pj-blog.com/2022/11/30/14-21-44/index.html">
 <meta property="og:site_name" content="pj&#39;s blog">
-<meta property="og:description" content="主要介绍在Python中使用Process创建子进程遇到的问题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-25T06:24:51.000Z">
-<meta property="article:modified_time" content="2022-11-25T06:33:44.537Z">
+<meta property="article:published_time" content="2022-11-30T06:21:44.000Z">
+<meta property="article:modified_time" content="2022-11-30T06:21:44.560Z">
 <meta property="article:author" content="pj">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://pj-blog.com/2022/11/25/14-24-51/">
+<link rel="canonical" href="http://pj-blog.com/2022/11/30/14-21-44/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2022/11/25/14-24-51/","path":"2022/11/25/14-24-51/","title":"在Python中使用Process创建子进程遇到的问题"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2022/11/30/14-21-44/","path":"2022/11/30/14-21-44/","title":"使用RNN实现文本生成"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>在Python中使用Process创建子进程遇到的问题 | pj's blog</title>
+<title>使用RNN实现文本生成 | pj's blog</title>
   
 
 
@@ -128,7 +126,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -141,7 +139,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AA%E4%BD%BF%E7%94%A8%E8%AF%A5%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.</span> <span class="nav-text">未使用该语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">结果示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%A5%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.</span> <span class="nav-text">使用该语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">2.1.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">2.2.</span> <span class="nav-text">结果示例</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -189,7 +186,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/11/25/14-24-51/">
+    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/11/30/14-21-44/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -202,12 +199,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="在Python中使用Process创建子进程遇到的问题 | pj's blog">
-      <meta itemprop="description" content="主要介绍在Python中使用Process创建子进程遇到的问题。">
+      <meta itemprop="name" content="使用RNN实现文本生成 | pj's blog">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          在Python中使用Process创建子进程遇到的问题
+          使用RNN实现文本生成
         </h1>
 
         <div class="post-meta-container">
@@ -217,18 +214,8 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-11-25 14:24:51 / 修改时间：14:33:44" itemprop="dateCreated datePublished" datetime="2022-11-25T14:24:51+08:00">2022-11-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" itemprop="url" rel="index"><span itemprop="name">疑难杂症</span></a>
-        </span>
+      <time title="创建时间：2022-11-30 14:21:44" itemprop="dateCreated datePublished" datetime="2022-11-30T14:21:44+08:00">2022-11-30</time>
     </span>
 
   
@@ -245,7 +232,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1k</span>
+      <span>0</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -256,7 +243,6 @@
     </span>
 </div>
 
-            <div class="post-description">主要介绍在Python中使用Process创建子进程遇到的问题。</div>
         </div>
       </header>
 
@@ -264,16 +250,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>假如使用Process创建子进程，那么在最后的函数调用时需要加上if _<em>name</em>_ &#x3D;&#x3D; “__main__”:语句，否则会报错。</p>
-<h1 id="未使用该语句"><a href="#未使用该语句" class="headerlink" title="未使用该语句"></a>未使用该语句</h1><h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_input</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;start print info!&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Process(target=test_input).start()</span><br></pre></td></tr></table></figure>
-
-<h2 id="结果示例"><a href="#结果示例" class="headerlink" title="结果示例"></a>结果示例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">RuntimeError: </span><br><span class="line">        An attempt has been made to start a new process before the</span><br><span class="line">        current process has finished its bootstrapping phase.</span><br><span class="line"></span><br><span class="line">        This probably means that you are not using fork to start your</span><br><span class="line">        child processes and you have forgotten to use the proper idiom</span><br><span class="line">        in the main module:</span><br><span class="line"></span><br><span class="line">            if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">                freeze_support()</span><br><span class="line">                ...</span><br><span class="line"></span><br><span class="line">        The &quot;freeze_support()&quot; line can be omitted if the program</span><br><span class="line">        is not going to be frozen to produce an executable.</span><br></pre></td></tr></table></figure>
-
-<h1 id="使用该语句"><a href="#使用该语句" class="headerlink" title="使用该语句"></a>使用该语句</h1><h2 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_input</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;start print info!&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    Process(target=test_input).start()</span><br></pre></td></tr></table></figure>
-
-<h2 id="结果示例-1"><a href="#结果示例-1" class="headerlink" title="结果示例"></a>结果示例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start print info!</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
-
-
+        
     </div>
 
 <div>
@@ -301,7 +278,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://pj-blog.com/2022/11/25/14-24-51/" title="在Python中使用Process创建子进程遇到的问题">http://pj-blog.com/2022/11/25/14-24-51/</a>
+      <a href="http://pj-blog.com/2022/11/30/14-21-44/" title="使用RNN实现文本生成">http://pj-blog.com/2022/11/30/14-21-44/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -315,13 +292,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/11/25/10-58-00/" rel="prev" title="如何在Python中的子进程获取键盘输入">
-                  <i class="fa fa-chevron-left"></i> 如何在Python中的子进程获取键盘输入
+                <a href="/2022/11/28/22-05-30/" rel="prev" title="使用Python实现多线程、多进程、异步IO的socket通信">
+                  <i class="fa fa-chevron-left"></i> 使用Python实现多线程、多进程、异步IO的socket通信
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/11/26/18-57-05/" rel="next" title="低代码相关概念及钉钉宜搭初使用">
-                  低代码相关概念及钉钉宜搭初使用 <i class="fa fa-chevron-right"></i>
+                <a href="/2022/12/07/11-39-16/" rel="next" title="使用PyLint评估分析代码质量">
+                  使用PyLint评估分析代码质量 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
