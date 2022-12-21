@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录通过GitHub和阿里云自定义域名认证https的方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过GitHub和阿里云自定义域名实现https认证">
+<meta property="og:url" content="http://pj-blog.com/2022/12/20/20-21-49/index.html">
+<meta property="og:site_name" content="pj&#39;s blog">
+<meta property="og:description" content="记录通过GitHub和阿里云自定义域名认证https的方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub1.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub2.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub3.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub4.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub5.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub6.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub7.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub8.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub9.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub10.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1%E9%A1%B5%E9%9D%A2.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/SSL%E8%AF%81%E4%B9%A6.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E7%AB%8B%E5%8D%B3%E8%B4%AD%E4%B9%B0.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E5%88%9B%E5%BB%BA%E8%AF%81%E4%B9%A6.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E5%9F%9F%E5%90%8D%E6%8E%A7%E5%88%B6%E5%8F%B0.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E6%B7%BB%E5%8A%A0%E8%AE%B0%E5%BD%95.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E8%AE%B0%E5%BD%951.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E8%AE%B0%E5%BD%952.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub11.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub12.png">
+<meta property="og:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub13.png">
+<meta property="article:published_time" content="2022-12-20T12:21:49.000Z">
+<meta property="article:modified_time" content="2022-12-21T07:35:15.515Z">
+<meta property="article:author" content="pj">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://pj-blog.com/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub1.png">
+
+
+<link rel="canonical" href="http://pj-blog.com/2022/12/20/20-21-49/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2022/12/20/20-21-49/","path":"2022/12/20/20-21-49/","title":"通过GitHub和阿里云自定义域名实现https认证"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>通过GitHub和阿里云自定义域名实现https认证 | pj's blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">pj's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Fortune favors the bold.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8GitHub%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">在GitHub中的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">在阿里云中的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%94%E5%9B%9EGitHub%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">返回GitHub进行操作</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pj"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">pj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/12/20/20-21-49/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="pj">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="pj's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="通过GitHub和阿里云自定义域名实现https认证 | pj's blog">
+      <meta itemprop="description" content="记录通过GitHub和阿里云自定义域名认证https的方法。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通过GitHub和阿里云自定义域名实现https认证
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-20 20:21:49" itemprop="dateCreated datePublished" datetime="2022-12-20T20:21:49+08:00">2022-12-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-21 15:35:15" itemprop="dateModified" datetime="2022-12-21T15:35:15+08:00">2022-12-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" itemprop="url" rel="index"><span itemprop="name">疑难杂症</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>873</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">记录通过GitHub和阿里云自定义域名认证https的方法。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="在GitHub中的操作"><a href="#在GitHub中的操作" class="headerlink" title="在GitHub中的操作"></a>在GitHub中的操作</h1><p>登录GitHub， 点击“Your repositories”，进入个人仓库页面；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub1.png" alt="GitHub1"></p>
+<p>点击“new“，进入新建仓库页面；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub2.png" alt="GitHub2"></p>
+<p>仓库名称填写&lt;user name&gt;.github.io，&lt;user name&gt;就是GitHub的账户名称，然后点击”create repository“；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub3.png" alt="GitHub3"></p>
+<p>点击”creating a new file“；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub4.png" alt="GitHub4"></p>
+<p>选择“index.html”，然后填写文件内容，文件内容可以自定义；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub5.png" alt="GitHub5"></p>
+<p>点击”Commit new file“；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub6.png" alt="GitHub6"></p>
+<p>点击”Add file“；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub7.png" alt="GitHub7"></p>
+<p>选择“Create new file”；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub8.png" alt="GitHub8"></p>
+<p>选择“CNAME”，文件内容输入要绑定的域名，域名不要包含http:&#x2F;&#x2F;和www；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub9.png" alt="GitHub9"></p>
+<p>点击“Commit new file”；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub10.png" alt="GitHub10"></p>
+<h1 id="在阿里云中的操作"><a href="#在阿里云中的操作" class="headerlink" title="在阿里云中的操作"></a>在阿里云中的操作</h1><p>进入阿里云之后，在搜索框中搜索“SSL证书（应用安全）”，进入到数字证书管理服务页面；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1%E9%A1%B5%E9%9D%A2.png" alt="数字证书管理服务页面"></p>
+<p>点击左侧栏中的“SSL证书”；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/SSL%E8%AF%81%E4%B9%A6.png" alt="SSL证书"></p>
+<p>点击“免费证书”，然后点击左侧的“立即购买”，勾选相应选项后，点击右下角“立即购买”；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E7%AB%8B%E5%8D%B3%E8%B4%AD%E4%B9%B0.png" alt="立即购买"></p>
+<p>点击“创建证书”，然后点击“证书申请”；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E5%88%9B%E5%BB%BA%E8%AF%81%E4%B9%A6.png" alt="创建证书"></p>
+<p>填写域名等相关信息，点击“下一步”，根据提示进行验证；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7.png" alt="证书申请"></p>
+<p>进入到域名控制台页面，选择目标域名进行解析；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E5%9F%9F%E5%90%8D%E6%8E%A7%E5%88%B6%E5%8F%B0.png" alt="域名控制台"></p>
+<p>添加两条记录，填写好字段值后点击“确认”；</p>
+<ul>
+<li>记录类型均选择CNAME；</li>
+<li>主机记录一条填写www，一条填写@；</li>
+<li>记录值均填写刚才GitHub中的仓库名&lt;user name&gt;.github.io。</li>
+</ul>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E6%B7%BB%E5%8A%A0%E8%AE%B0%E5%BD%95.png" alt="添加记录"></p>
+<p>两条记录如下图所示。</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E8%AE%B0%E5%BD%951.png" alt="记录1"></p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/%E8%AE%B0%E5%BD%952.png" alt="记录2"></p>
+<p>（PS 此处在操作的时候，曾参考其他文章，配置如下四条A记录，但在实际使用时均导致无法打开页面，发现只配置上面两条CNAME记录即可。）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">185.199.108.153</span><br><span class="line">185.199.109.153</span><br><span class="line">185.199.110.153</span><br><span class="line">185.199.111.153</span><br></pre></td></tr></table></figure>
+
+<h1 id="返回GitHub进行操作"><a href="#返回GitHub进行操作" class="headerlink" title="返回GitHub进行操作"></a>返回GitHub进行操作</h1><p>点击“Settings”；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub11.png" alt="GitHub11"></p>
+<p>点击“Pages”，进入GitHub Pages页面；</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub12.png" alt="GitHub12"></p>
+<p>将页面往下拉，找到“Enforce HTTPS”，将其打勾即可（需要等待一段时间才可以操作成功）。</p>
+<p><img src="/GitHub%E5%92%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0https%E8%AE%A4%E8%AF%81/GitHub13.png" alt="GitHub13"></p>
+<p>至此，https认证完毕。</p>
+
+    </div>
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>pj
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://pj-blog.com/2022/12/20/20-21-49/" title="通过GitHub和阿里云自定义域名实现https认证">http://pj-blog.com/2022/12/20/20-21-49/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    如有错漏之处，恳请指正！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/07/11-39-16/" rel="prev" title="使用PyLint评估分析代码质量">
+                  <i class="fa fa-chevron-left"></i> 使用PyLint评估分析代码质量
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NzYyMC8zNDA4NA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pj</span>
+</div>
+<div class="wordcount">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        站点总访问量 :<span id="busuanzi_value_site_pv"></span>次
+      </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-chart-line"></i>
+          </span>
+          <span title="站点总字数">33k</span>
+        </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-coffee"></i>
+          </span>
+          <span title="站点阅读时长">30 分钟</span>
+        </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>
