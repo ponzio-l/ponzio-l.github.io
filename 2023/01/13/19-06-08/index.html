@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍AngularJS入门的基础知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AngularJS——初识AngularJS">
+<meta property="og:url" content="http://pj-blog.com/2023/01/13/19-06-08/index.html">
+<meta property="og:site_name" content="pj&#39;s blog">
+<meta property="og:description" content="介绍AngularJS入门的基础知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-13T11:06:08.000Z">
+<meta property="article:modified_time" content="2023-01-13T11:08:29.238Z">
+<meta property="article:author" content="pj">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://pj-blog.com/2023/01/13/19-06-08/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2023/01/13/19-06-08/","path":"2023/01/13/19-06-08/","title":"AngularJS——初识AngularJS"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AngularJS——初识AngularJS | pj's blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">pj's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Fortune favors the bold.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AngularJS%E2%80%94%E2%80%94%E5%88%9D%E8%AF%86AngularJS"><span class="nav-number">1.</span> <span class="nav-text">AngularJS——初识AngularJS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularJS%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text">AngularJS是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularJS%E7%89%B9%E6%80%A7-%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">AngularJS特性(优点)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8EjQuery%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">1.3.</span> <span class="nav-text">与jQuery的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularJS%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">AngularJS的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%EF%BC%88single-page-application%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">单页面应用（single page application）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularJS%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-number">1.5.</span> <span class="nav-text">AngularJS的组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDAngularJS"><span class="nav-number">1.6.</span> <span class="nav-text">下载AngularJS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.6.1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9"><span class="nav-number">1.6.2.</span> <span class="nav-text">版本选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85AngularJS"><span class="nav-number">1.7.</span> <span class="nav-text">安装AngularJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AAAngularJS%E5%BA%94%E7%94%A8"><span class="nav-number">1.8.</span> <span class="nav-text">第一个AngularJS应用</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pj"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">pj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2023/01/13/19-06-08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="pj">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="pj's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AngularJS——初识AngularJS | pj's blog">
+      <meta itemprop="description" content="介绍AngularJS入门的基础知识。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AngularJS——初识AngularJS
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-13 19:06:08 / 修改时间：19:08:29" itemprop="dateCreated datePublished" datetime="2023-01-13T19:06:08+08:00">2023-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AngularJS/" itemprop="url" rel="index"><span itemprop="name">AngularJS</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">介绍AngularJS入门的基础知识。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="AngularJS——初识AngularJS"><a href="#AngularJS——初识AngularJS" class="headerlink" title="AngularJS——初识AngularJS"></a>AngularJS——初识AngularJS</h1><h2 id="AngularJS是什么"><a href="#AngularJS是什么" class="headerlink" title="AngularJS是什么"></a>AngularJS是什么</h2><p>AngularJS是Google开源的一款前端JS结构化框架，它通过对前端开发进行分层，极好地规范了前端开发的风格——它将前端开发分为Controller层、Service层、DAO层和Model层。其中，Model对象与HTML页面（视图）上HTML元素进行双向绑定，开发者可通过Controller调用Service、DAO与后端交互，获取后端数据之后，只要修改其中Model对象的值，视图页面也会随之动态改变。这个设计架构层次非常清晰，而且具有一定的“强制性”，整个前端团队一旦采用AngularJS框架，那么整个前端开发风格会变得简单、清晰，所有团队成员都能采用一致的开发风格，这也是AngularJS的魅力所在。</p>
+<h2 id="AngularJS特性-优点"><a href="#AngularJS特性-优点" class="headerlink" title="AngularJS特性(优点)"></a>AngularJS特性(优点)</h2><ul>
+<li>双向数据绑定；</li>
+<li>声明式依赖注入；</li>
+<li>解耦应用逻辑、数据模型和视图；</li>
+<li>完善的页面指令；</li>
+<li>定制表单验证；</li>
+<li>Ajax封装。</li>
+</ul>
+<h2 id="与jQuery的比较"><a href="#与jQuery的比较" class="headerlink" title="与jQuery的比较"></a>与jQuery的比较</h2><p>jQuery</p>
+<ul>
+<li>JS函数库；</li>
+<li>封装简化DOM操作。</li>
+</ul>
+<p>AngularJS</p>
+<ul>
+<li>JS结构化框架；</li>
+<li>主体不再是DOM，而是页面中的动态数据。</li>
+</ul>
+<h2 id="AngularJS的应用"><a href="#AngularJS的应用" class="headerlink" title="AngularJS的应用"></a>AngularJS的应用</h2><p>构建单页面（single page application，SPA）Web应用或Web APP应用。</p>
+<h3 id="单页面应用（single-page-application）"><a href="#单页面应用（single-page-application）" class="headerlink" title="单页面应用（single page application）"></a>单页面应用（single page application）</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>将所有的活动局限于一个页面，浏览器一开始就加载网页所有内容，当页面中有部分数据发生了变化，不会刷新整个页面，而是局部刷新（利用的Ajax技术）。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>用户体验好，内容的改变不需要重新加载整个页面；</li>
+<li>适合前后端分离开发，服务器只出数据，减轻了服务器压力。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>首屏加载速度慢；</li>
+<li>不利于SEO优化。</li>
+</ul>
+<h2 id="AngularJS的组成"><a href="#AngularJS的组成" class="headerlink" title="AngularJS的组成"></a>AngularJS的组成</h2><ul>
+<li>ng-app : 该指令用于设置AngularJS应用。例如为＜body…&#x2F;＞元素增加了ng-app属性，这意味着所有AngularJS应用处于＜body…&#x2F;＞元素内。在＜body…&#x2F;＞元素内可使用其他AngularJS指令，也可使用&#x2F;{&#x2F;{&#x2F;}&#x2F;}来输出表达式。</li>
+<li>ng-model : 该指令用于执行“双向绑定”，所谓双向绑定指的是将HTML输入元素的值与AngularJS应用的某个变量进行绑定。完成“双向绑定”之后，当HTML输入元素的值发生改变时，AngularJS应用中绑定的变量的值也会随之改变；反过来，当程序修改AngularJS应用的变量的值时，HTML输入元素的值也会随之改变。</li>
+<li>ng-bind : 该指令用于绑定ng-model的数据。</li>
+</ul>
+<h2 id="下载AngularJS"><a href="#下载AngularJS" class="headerlink" title="下载AngularJS"></a>下载AngularJS</h2><p>AngularJS也是一个纯粹的JavaScript库，下载AngularJS与下载其它JavaScript库一样，打开链接后，选中相应的版本下载即可。<a target="_blank" rel="noopener" href="https://code.angularjs.org/">下载链接</a></p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>AngularJS是AngularJS 1.X，并不是Angular 2.X（Angular 2没有JS后缀）；</li>
+<li>AngularJS 1.X是真正轻量级JavaScript框架，比较适合熟悉JavaScript的前端开发者；</li>
+<li>Angular 2.X使用的是TypeScript脚本，其开发高度依赖Node.js。</li>
+</ul>
+<h3 id="版本选择"><a href="#版本选择" class="headerlink" title="版本选择"></a>版本选择</h3><ul>
+<li><strong>angular.min.js</strong>：该版本是去除注释后的AngularJS库，文件体积较小，开发实际项目时推荐使用该版本。</li>
+<li><strong>angular.js</strong>：该版本的AngularJS库没有压缩，而且保留了注释。学习AngularJS及有兴趣研究AngularJS源代码的读者可以使用该版本。</li>
+<li><strong>angular-xxx.min.js</strong>：AngularJS为特定功能提供的支持库。比如angular-animate.min.js就是AngularJS的动画支持库；angular-cookies.min.js就是AngularJS的Cookie访问支持库。</li>
+<li><strong>angular-xxx.js</strong>：与对应的angular-xxx-min.js库的功能相同，只是保留了注释，没有压缩。</li>
+</ul>
+<h2 id="安装AngularJS"><a href="#安装AngularJS" class="headerlink" title="安装AngularJS"></a>安装AngularJS</h2><p>AngularJS库的安装很简单，只要在HTML页面中导入AngularJS的JavaScript文件即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;angular.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中，src 属性为待导入的AngularJS文件。</p>
+<h2 id="第一个AngularJS应用"><a href="#第一个AngularJS应用" class="headerlink" title="第一个AngularJS应用"></a>第一个AngularJS应用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head lang=&quot;en&quot;&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;script src=&quot;../../js/angular-1.2.29/angular.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;title&gt;第一个程序&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body ng-app&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; ng-model=&quot;mymodel&quot; /&gt;</span><br><span class="line">    &lt;p&gt;您输入的内容是：&lt;span&gt;&#123;&#123;mymodel&#125;&#125;&lt;/span&gt;&lt;/p&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>pj
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://pj-blog.com/2023/01/13/19-06-08/" title="AngularJS——初识AngularJS">http://pj-blog.com/2023/01/13/19-06-08/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    如有错漏之处，恳请指正！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/10/10-46-12/" rel="prev" title="在Chrome中安装扩展程序">
+                  <i class="fa fa-chevron-left"></i> 在Chrome中安装扩展程序
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NzYyMC8zNDA4NA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pj</span>
+</div>
+<div class="wordcount">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        站点总访问量 :<span id="busuanzi_value_site_pv"></span>次
+      </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-chart-line"></i>
+          </span>
+          <span title="站点总字数">36k</span>
+        </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-coffee"></i>
+          </span>
+          <span title="站点阅读时长">32 分钟</span>
+        </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>
