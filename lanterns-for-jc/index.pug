@@ -1,0 +1,70 @@
+- var link = 'sky-lantern'
+- var title = '元宵節 天燈效果 Sky lantern - Lantern Festival'
+- var description = '元宵節 天燈效果 Sky lantern - Lantern Festival'
+
+<!DOCTYPE html>
+html(lang="zh-TW")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title #{title} - August - Let's Write
+
+    link(rel="canonical", href=`https://letswritetw.github.io/letswrite-${link}/`)
+    meta(property="og:url", content=`https://letswritetw.github.io/letswrite-${link}/`)
+
+    meta(property="fb:app_id", content="911000986339138")
+    meta(property="og:type", content="website")
+
+    meta(property="og:site_name", content="Let's Write")
+    meta(property="og:title", content=`${title} - August - Let's Write`)
+    meta(itemprop="name", content=`${title} - August - Let's Write`)
+
+    meta(name="description", content=description)
+    meta(property="og:description", content=description)
+    meta(itemprop="description", content=description)
+
+    meta(itemprop="image", content=`https://letswritetw.github.io/letswrite-${link}/fb.jpg`)
+    meta(property="og:image", content=`https://letswritetw.github.io/letswrite-${link}/fb.jpg`)
+    meta(property="og:image:width", content="1200")
+    meta(property="og:image:height", content="630")
+    meta(property="og:image:alt", content=title)
+
+    link(rel="shortcut icon", href="https://letswritetw.github.io/letswritetw/dist/img/logo_512.png")
+
+    //- css
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css")
+    link(rel="stylesheet", href="dist/style.min.css")
+
+    // Google Tag Manager
+    script.
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PGQ9WQT');
+  body
+
+    // Google Tag Manager (noscript)
+    noscript
+      iframe(src="https://www.googletagmanager.com/ns.html?id=GTM-PGQ9WQT", height="0", width="0", style="display:none;visibility:hidden")
+    
+    .container
+      section.z-100
+        .blur
+          - for(var z=0; z<120; z++)
+            img(class=`lantern l${z+1}`, src="dist/sky.svg", alt="天燈")
+        - for(var i=0; i<220; i++)
+          img(class=`lantern l${i+1}`, src="dist/sky.svg", alt="天燈")
+        
+      section.cloud-wrap
+        - for(var x=0; x<20; x++)
+          img(class=`cloud c${x+1}`, src="https://docs.google.com/uc?id=1xqKEc0G98czidgMbuC4tgyynTdW9mNVq", alt="雲")
+      
+      aside.land
+        img(src="dist/bottom.svg", alt="地面")
+        .copyright
+          a(href="https://www.freepik.com/vectors/sky", target="_blank") Sky vector created by freepik - www.freepik.com
+          a(href="https://letswrite.tw", target="_blank") &copy; 2021 Let's Write. All Rights Reserved.
+    
+    script(src="dist/main.min.js")
