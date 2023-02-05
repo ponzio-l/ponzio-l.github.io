@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍Flask入门的基础知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识Flask">
+<meta property="og:url" content="http://pj-blog.com/2023/01/30/20-31-07/index.html">
+<meta property="og:site_name" content="pj&#39;s blog">
+<meta property="og:description" content="介绍Flask入门的基础知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://pj-blog.com/2023/01/30/20-31-07/01.png">
+<meta property="og:image" content="http://pj-blog.com/2023/01/30/20-31-07/02.png">
+<meta property="og:image" content="http://pj-blog.com/2023/01/30/20-31-07/03.png">
+<meta property="og:image" content="http://pj-blog.com/2023/01/30/20-31-07/04.png">
+<meta property="og:image" content="http://pj-blog.com/2023/01/30/20-31-07/03.png">
+<meta property="og:image" content="http://pj-blog.com/2023/01/30/20-31-07/05.png">
+<meta property="og:image" content="http://pj-blog.com/2023/01/30/20-31-07/06.png">
+<meta property="og:image" content="http://pj-blog.com/2023/01/30/20-31-07/07.png">
+<meta property="og:image" content="http://pj-blog.com/2023/01/30/20-31-07/08.png">
+<meta property="article:published_time" content="2023-01-30T12:31:07.000Z">
+<meta property="article:modified_time" content="2023-01-31T14:36:37.251Z">
+<meta property="article:author" content="pj">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://pj-blog.com/2023/01/30/20-31-07/01.png">
+
+
+<link rel="canonical" href="http://pj-blog.com/2023/01/30/20-31-07/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2023/01/30/20-31-07/","path":"2023/01/30/20-31-07/","title":"初识Flask"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>初识Flask | pj's blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">pj's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Fortune favors the bold.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E8%AF%86Flask"><span class="nav-number">1.</span> <span class="nav-text">初识Flask</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flask%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">Flask简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flask-vs-Django"><span class="nav-number">1.2.</span> <span class="nav-text">Flask vs Django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Flask"><span class="nav-number">1.3.</span> <span class="nav-text">安装Flask</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AAFlask%E9%A1%B9%E7%9B%AE%EF%BC%88%E4%BD%BF%E7%94%A8Pycharm%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">第一个Flask项目（使用Pycharm）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE"><span class="nav-number">1.5.</span> <span class="nav-text">项目配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#debug%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">debug模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">设置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%95%E4%B8%80"><span class="nav-number">1.5.1.1.1.</span> <span class="nav-text">法一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%95%E4%BA%8C"><span class="nav-number">1.5.1.1.2.</span> <span class="nav-text">法二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9host"><span class="nav-number">1.5.2.</span> <span class="nav-text">修改host</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9port"><span class="nav-number">1.5.3.</span> <span class="nav-text">修改port</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL%E4%B8%8E%E8%A7%86%E5%9B%BE"><span class="nav-number">1.6.</span> <span class="nav-text">URL与视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#URL%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.6.1.</span> <span class="nav-text">URL格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL%E4%B8%8E%E8%A7%86%E5%9B%BE%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.6.2.</span> <span class="nav-text">URL与视图的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%97%A0%E5%8F%82%E6%95%B0%E7%9A%84URL"><span class="nav-number">1.6.3.</span> <span class="nav-text">定义无参数的URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84URL"><span class="nav-number">1.6.4.</span> <span class="nav-text">定义有参数的URL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E4%B8%80"><span class="nav-number">1.6.4.1.</span> <span class="nav-text">类型一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E4%BA%8C"><span class="nav-number">1.6.4.2.</span> <span class="nav-text">类型二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jinjia2%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.7.</span> <span class="nav-text">Jinjia2模板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%B8%B2%E6%9F%93"><span class="nav-number">1.7.1.</span> <span class="nav-text">模板渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E5%8F%82%E6%95%B0%E6%B8%B2%E6%9F%93"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">无参数渲染</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E5%8F%82%E6%95%B0%E6%B8%B2%E6%9F%93"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">有参数渲染</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">1.7.2.</span> <span class="nav-text">模板访问对象属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">1.7.3.</span> <span class="nav-text">过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">内置过滤器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">自定义过滤器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.7.4.</span> <span class="nav-text">控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#if%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.7.4.1.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.7.4.2.</span> <span class="nav-text">for循环</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF"><span class="nav-number">1.7.5.</span> <span class="nav-text">模板继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6"><span class="nav-number">1.7.6.</span> <span class="nav-text">加载静态文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9CMySQL"><span class="nav-number">1.8.</span> <span class="nav-text">操作MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python%E6%93%8D%E4%BD%9CMySQL%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.8.1.</span> <span class="nav-text">Python操作MySQL驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85pymysql"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">安装pymysql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Flask-SQLAlchemy"><span class="nav-number">1.8.1.2.</span> <span class="nav-text">安装Flask-SQLAlchemy</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flask-SQLAlchemy%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.8.2.</span> <span class="nav-text">Flask-SQLAlchemy基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5MySQL"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">连接MySQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORM%E6%A8%A1%E5%9E%8B%E4%B8%8E%E8%A1%A8%E7%9A%84%E6%98%A0%E5%B0%84"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">ORM模型与表的映射</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ORM%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.8.2.2.1.</span> <span class="nav-text">ORM模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.8.2.2.2.</span> <span class="nav-text">映射方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B3%95%E4%B8%80%E2%80%94%E2%80%94%E9%80%9A%E8%BF%87db-create-all-%E6%98%A0%E5%B0%84%E3%80%82"><span class="nav-number">1.8.2.2.2.1.</span> <span class="nav-text">法一——通过db.create_all()映射。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B3%95%E4%BA%8C%E2%80%94%E2%80%94%E9%80%9A%E8%BF%87flask-migrate%E6%98%A0%E5%B0%84%E3%80%82"><span class="nav-number">1.8.2.2.2.2.</span> <span class="nav-text">法二——通过flask-migrate映射。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="nav-number">1.8.2.3.</span> <span class="nav-text">MySQL的增删改查</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">1.8.2.3.1.</span> <span class="nav-text">增加数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%95%B0%E6%8D%AE"><span class="nav-number">1.8.2.3.2.</span> <span class="nav-text">查找数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="nav-number">1.8.2.3.3.</span> <span class="nav-text">修改数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="nav-number">1.8.2.3.4.</span> <span class="nav-text">删除数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORM%E6%A8%A1%E5%9E%8B%E5%A4%96%E9%94%AE%E4%B8%8E%E8%A1%A8%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.8.2.4.</span> <span class="nav-text">ORM模型外键与表的关系</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pj"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">pj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2023/01/30/20-31-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="pj">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="pj's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="初识Flask | pj's blog">
+      <meta itemprop="description" content="介绍Flask入门的基础知识。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          初识Flask
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-30 20:31:07" itemprop="dateCreated datePublished" datetime="2023-01-30T20:31:07+08:00">2023-01-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-31 22:36:37" itemprop="dateModified" datetime="2023-01-31T22:36:37+08:00">2023-01-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Flask/" itemprop="url" rel="index"><span itemprop="name">Flask</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>15 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">介绍Flask入门的基础知识。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="初识Flask"><a href="#初识Flask" class="headerlink" title="初识Flask"></a>初识Flask</h1><h2 id="Flask简介"><a href="#Flask简介" class="headerlink" title="Flask简介"></a>Flask简介</h2><p>Flask是一个基于Python的web框架，由奥地利开发商Armin Ronacher于2010年4月1日发布。它以灵活、“微”框架著称，其本身并不具备太多的功能，但通过丰富的第三方插件，使其在保持重量轻和简单的同时仍然可以进行高度扩展，让开发者能轻松应对现实开发中复杂的需求。</p>
+<h2 id="Flask-vs-Django"><a href="#Flask-vs-Django" class="headerlink" title="Flask vs Django"></a>Flask vs Django</h2><ul>
+<li>Django功能大而全，Flask只包含基本的配置；</li>
+<li>Flask 比 Django 扩展性更好。</li>
+</ul>
+<h2 id="安装Flask"><a href="#安装Flask" class="headerlink" title="安装Flask"></a>安装Flask</h2><p>打开cmd窗口，执行如下指令即可安装。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install flask -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<p>执行如下指令查看是否安装成功。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip list</span><br></pre></td></tr></table></figure>
+
+<h2 id="第一个Flask项目（使用Pycharm）"><a href="#第一个Flask项目（使用Pycharm）" class="headerlink" title="第一个Flask项目（使用Pycharm）"></a>第一个Flask项目（使用Pycharm）</h2><p>打开PyCharm，选择New Project新建一个项目，之后点击左侧Flask，再选择项目存放路径以及Python解释器路径，点击Create即可。</p>
+<p><img src="/2023/01/30/20-31-07/01.png" alt="01"></p>
+<p>创建成功后，项目结构如下。</p>
+<p>flask_01<br>│  app.py：项目入口文件。<br>├─static：存放静态文件（js、css、image等）的文件夹，初始为空。<br>└─templates：存Jinjia2模板的文件夹，初始为空。</p>
+<p><img src="/2023/01/30/20-31-07/02.png" alt="02"></p>
+<p>app.py初始内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask  # 从flask包中导入Flask类</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)  # 实例化Flask类</span><br><span class="line"># __name__：代表当前app.py这个模块，其作用为 1.以后出现bug，可以帮助我们快速定位；2.对于寻找模板文件，有一个相对路径</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)  # 创建一个路由和视图函数的映射，/代表根路由</span><br><span class="line">def hello_world():  # 当访问根路由时会执行此函数</span><br><span class="line">    return &#x27;Hello World!&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()  # 运行项目</span><br></pre></td></tr></table></figure>
+
+<h2 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h2><h3 id="debug模式"><a href="#debug模式" class="headerlink" title="debug模式"></a>debug模式</h3><p>开启debug模式后，只要修改代码后保存，项目就会重新加载，无需手动重启项目，且开发时如果遇到bug，可以在浏览器上看到出错信息。</p>
+<h4 id="设置方法"><a href="#设置方法" class="headerlink" title="设置方法"></a>设置方法</h4><h5 id="法一"><a href="#法一" class="headerlink" title="法一"></a>法一</h5><p>首先点击Edit Configurations。</p>
+<p><img src="/2023/01/30/20-31-07/03.png" alt="1675092550816"></p>
+<p>勾选FLASK_DEBUG后，点击OK即可。</p>
+<p><img src="/2023/01/30/20-31-07/04.png" alt="04"></p>
+<h5 id="法二"><a href="#法二" class="headerlink" title="法二"></a>法二</h5><p>在app.run()  中添加debug&#x3D;True。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.run(debug=True)  # 运行项目</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改host"><a href="#修改host" class="headerlink" title="修改host"></a>修改host</h3><p>host即为监听的主机名，默认为127.0.0.1，修改host可以让其它电脑也能访问到本电脑的flask项目，修改步骤如下。</p>
+<p>点击Edit Configurations。</p>
+<p><img src="/2023/01/30/20-31-07/03.png" alt="03"></p>
+<p>在Additional options处填写预设的host值，然后点击OK即可。</p>
+<p><img src="/2023/01/30/20-31-07/05.png" alt="05"></p>
+<h3 id="修改port"><a href="#修改port" class="headerlink" title="修改port"></a>修改port</h3><p>port即为端口号，若要修改，同样在Additional options处修改即可。</p>
+<p><img src="/2023/01/30/20-31-07/06.png" alt="06"></p>
+<h2 id="URL与视图"><a href="#URL与视图" class="headerlink" title="URL与视图"></a>URL与视图</h2><h3 id="URL格式"><a href="#URL格式" class="headerlink" title="URL格式"></a>URL格式</h3><p>协议:&#x2F;&#x2F;域名:端口号&#x2F;path，其中，path通过app.route()指定。</p>
+<h3 id="URL与视图的关系"><a href="#URL与视图的关系" class="headerlink" title="URL与视图的关系"></a>URL与视图的关系</h3><p>在URL中，http协议默认端口为80，https协议默认端口为443，在实际使用中默认端口号可以不填写，下方两个URL均能正确访问到百度地址。</p>
+<p><a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com</a>   </p>
+<p><a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com:443</a></p>
+<h3 id="定义无参数的URL"><a href="#定义无参数的URL" class="headerlink" title="定义无参数的URL"></a>定义无参数的URL</h3><p>敲写下方代码，程序运行后，可通过  127.0.0.1:8888&#x2F;home  访问。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&#x27;/home&#x27;)</span><br><span class="line">def home():</span><br><span class="line">    return &#x27;home&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="定义有参数的URL"><a href="#定义有参数的URL" class="headerlink" title="定义有参数的URL"></a>定义有参数的URL</h3><p>flask里通过&lt;&gt;来给path指定参数。</p>
+<p>参数类型</p>
+<ul>
+<li><p>string：字符串类型，可以接受除&#x2F;以外的字符。</p>
+</li>
+<li><p>int：整型，可以接受能通过int()方法转换的字符。</p>
+</li>
+<li><p>float：浮点型，可以接受能通过float()方法转换的字符。</p>
+</li>
+<li><p>path：路径，类似string，但是中间可以添加&#x2F;。</p>
+</li>
+<li><p>uuid：UUID类型，UUID是一组32位数的16进制所构成。</p>
+</li>
+<li><p>any：备选值中的任何一个（理解为枚举）。</p>
+</li>
+</ul>
+<h4 id="类型一"><a href="#类型一" class="headerlink" title="类型一"></a>类型一</h4><p>敲写下方代码，程序运行后，可通过   127.0.0.1:8888&#x2F;home&#x2F;任意数字  访问。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&#x27;/home/&lt;int:user_id&gt;&#x27;)  # 类型的指定是可选的</span><br><span class="line">def blog_detail(user_id):</span><br><span class="line">    return &#x27;您是：%s&#x27; % user_id</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/01/30/20-31-07/07.png" alt="07"></p>
+<h4 id="类型二"><a href="#类型二" class="headerlink" title="类型二"></a>类型二</h4><p>敲写下方代码，程序运行后，可通过   127.0.0.1:8888&#x2F;book&#x2F;list?page&#x3D;任意数字  访问。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, request  # 从flask包中导入Flask类</span><br><span class="line"></span><br><span class="line"># /book/list：返回第一页的数据</span><br><span class="line"># /book/list?page=2：返回第二页的数据</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/book/list&#x27;)</span><br><span class="line">def book_list():</span><br><span class="line">    # arguments: 参数</span><br><span class="line">    # request.args: 类字典类型</span><br><span class="line">    page = request.args.get(&quot;page&quot;, default=1, type=int)</span><br><span class="line">    return f&#x27;您获取的是第&#123;page&#125;页的图书列表&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/01/30/20-31-07/08.png" alt="08"></p>
+<h2 id="Jinjia2模板"><a href="#Jinjia2模板" class="headerlink" title="Jinjia2模板"></a>Jinjia2模板</h2><p>Jinjia2是一个Python模板语言，安装Flask时，Jinjia2会自动安装，Jinjia2模板语言是不分缩进的。</p>
+<h3 id="模板渲染"><a href="#模板渲染" class="headerlink" title="模板渲染"></a>模板渲染</h3><h4 id="无参数渲染"><a href="#无参数渲染" class="headerlink" title="无参数渲染"></a>无参数渲染</h4><p>在templates创建文件index.html。</p>
+<p>index.html内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;首页&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;这是首页。&lt;/h1&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def hello_world():</span><br><span class="line">    return render_template(&#x27;index.html&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()  # 运行项目</span><br></pre></td></tr></table></figure>
+
+<h4 id="有参数渲染"><a href="#有参数渲染" class="headerlink" title="有参数渲染"></a>有参数渲染</h4><p>在templates创建文件user_detail.html。</p>
+<p>user_detail.html内容如下，Jinjia2通过{}来获取变量的值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;用户详情&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;用户id是&#123;&#123; user_id &#125;&#125;&lt;/h1&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/home/&lt;user_id&gt;&#x27;)</span><br><span class="line">def user_detail(user_id):</span><br><span class="line">    return render_template(&#x27;user_detail.html&#x27;, user_id=user_id)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()  # 运行项目</span><br></pre></td></tr></table></figure>
+
+<h3 id="模板访问对象属性"><a href="#模板访问对象属性" class="headerlink" title="模板访问对象属性"></a>模板访问对象属性</h3><p>Jinjia2访问对象属性有两种方法，例如和。</p>
+<p>index.html内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;首页&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;&#123;&#123; user.user_name &#125;&#125; + &#123;&#123; user.user_email &#125;&#125;&lt;/h1&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">class User:</span><br><span class="line">    def __init__(self, user_name, user_email):</span><br><span class="line">        self.user_name = user_name</span><br><span class="line">        self.user_email = user_email</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def hello_world():</span><br><span class="line">    user = User(&quot;lili&quot;, &#x27;123456@qq.com&#x27;)</span><br><span class="line">    return render_template(&#x27;index.html&#x27;, user=user)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><p>在Python中，如果需要对某个变量进行处理，可以通过函数来实现；在模板中，则是通过过滤器来实现的。过滤器本质上也是函数，在模板中使用管道符号（|）来调用。例如有字符串类型变量name，想要获取它的长度，可以通过0来获取，length是Jinjia2内置的过滤器，Jinjia2会把name当做第一个参数传给length过滤器底层对应的函数。</p>
+<h4 id="内置过滤器"><a href="#内置过滤器" class="headerlink" title="内置过滤器"></a>内置过滤器</h4><p>filter.html内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;filter_demo&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    名字：&#123;&#123; user.user_name &#125;&#125;</span><br><span class="line">    名字长度：&#123;&#123; user.user_name|length &#125;&#125;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">class User:</span><br><span class="line">    def __init__(self, user_name, user_email):</span><br><span class="line">        self.user_name = user_name</span><br><span class="line">        self.user_email = user_email</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/filter&#x27;)</span><br><span class="line">def filte_page():</span><br><span class="line">    user = User(&#x27;lili&#x27;, &#x27;123@qq.com&#x27;)</span><br><span class="line">    return render_template(&#x27;filter.html&#x27;, user=user)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h4><p>过滤器本质上是Python的函数，它会把被过滤的值当做第一个参数传给这个函数，函数经过一些逻辑处理后，再返回新的值。在过滤器函数写好后，可以通过@app.template_filter装饰器或者app.add_template_filter函数来把函数注册成Jinjia2能用的过滤器。</p>
+<p>下方代码定义了一个date_format函数，第一个参数是需要被处理的值，第二个参数是时间的格式，并且指定了一个默认值，通过app.add_template_filter，将date_format函数注册成了过滤器，并且过滤器的名字为d_format，如果app.add_template_filter没有传第二个参数，那么默认将使用函数的名称来作为过滤器的名称。</p>
+<p>filter.html内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;filter_demo&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    时间：&#123;&#123; my_time|d_format &#125;&#125;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line">from datetime import datetime</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/filter&#x27;)</span><br><span class="line">def filte_page():</span><br><span class="line">    my_time = datetime.now()</span><br><span class="line">    return render_template(&#x27;filter.html&#x27;, my_time=my_time)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def date_format(value, format=&quot;%Y-%m-%d %H:%M&quot;):</span><br><span class="line">    return value.strftime(format)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.add_template_filter(date_format, &#x27;d_format&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<h3 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h3><h4 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h4><p>filter.html内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;filter_demo&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &#123;% if age &gt; 18 %&#125;</span><br><span class="line">        &lt;div&gt;您已满18岁&lt;/div&gt;</span><br><span class="line">    &#123;% elif age == 18 %&#125;</span><br><span class="line">        &lt;div&gt;您刚满18岁&lt;/div&gt;</span><br><span class="line">    &#123;% else %&#125;</span><br><span class="line">        &lt;div&gt;您未满18岁&lt;/div&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/filter&#x27;)</span><br><span class="line">def filte_page():</span><br><span class="line">    age = 17</span><br><span class="line">    return render_template(&#x27;filter.html&#x27;, age=age)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><p>Jinjia2中的for循环没有break语句。</p>
+<p>filter.html内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;filter_demo&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &#123;% for student in students %&#125;</span><br><span class="line">        &lt;div&gt;学生姓名：&#123;&#123; student.name &#125;&#125;，学生年龄：&#123;&#123; student.age &#125;&#125;&lt;/div&gt;</span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/filter&#x27;)</span><br><span class="line">def filte_page():</span><br><span class="line">    students = [</span><br><span class="line">        &#123;&#x27;name&#x27;:&#x27;lili&#x27;, &#x27;age&#x27;:18&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;:&#x27;lucy&#x27;, &#x27;age&#x27;:17&#125;,</span><br><span class="line">        &#123;&#x27;name&#x27;:&#x27;lfiv&#x27;, &#x27;age&#x27;:19&#125;</span><br><span class="line">    ]</span><br><span class="line">    return render_template(&#x27;filter.html&#x27;, students=students)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()  # 运行项目</span><br></pre></td></tr></table></figure>
+
+<h3 id="模板继承"><a href="#模板继承" class="headerlink" title="模板继承"></a>模板继承</h3><p>一个网站中，大部分网页的模块是重复的，比如顶部的导航栏、底部的备案信息等，如果在每个页面中都重复地去写这些代码，会让项目变得臃肿，提高后期维护成本。此时，可以通过模板继承，把一些重复性的代码写在父模板里，子模板继承父模板后，再分别实现自己的代码。</p>
+<p>父模板文件base.html内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;&#123;% block title %&#125;&#123;% endblock %&#125;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;新闻&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&#123;% block body %&#125;</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line">&lt;footer&gt;底部标签&lt;/footer&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>child1.html内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends &#x27;base.html&#x27; %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block title %&#125;</span><br><span class="line">    我是子模板</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% block body %&#125;</span><br><span class="line">    我是子模板的文字</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/child1&#x27;)</span><br><span class="line">def child1():</span><br><span class="line">    return render_template(&#x27;child1.html&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<h3 id="加载静态文件"><a href="#加载静态文件" class="headerlink" title="加载静态文件"></a>加载静态文件</h3><p>static.html内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;static_demo&lt;/title&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;css/style.css&#x27;) &#125;&#125;&quot;&gt;</span><br><span class="line">    &lt;script src=&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;js/my.js&#x27;) &#125;&#125;&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;img src=&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;images/air.jpg&#x27;) &#125;&#125;&quot; alt=&quot;&quot;&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/static&#x27;)</span><br><span class="line">def static_demo():</span><br><span class="line">    return render_template(&#x27;static.html&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作MySQL"><a href="#操作MySQL" class="headerlink" title="操作MySQL"></a>操作MySQL</h2><h3 id="Python操作MySQL驱动"><a href="#Python操作MySQL驱动" class="headerlink" title="Python操作MySQL驱动"></a>Python操作MySQL驱动</h3><p>Flask要想操作数据库，必须要先安装Python操作MySQL的驱动，在Python中，目前有以下MySQL驱动包：</p>
+<ul>
+<li>MySQL-python：也就是MySQLdb，是对C语言操作MySQL数据库的一个简单封装，但只支持Python2。</li>
+<li>mysqlclient：是MySQL-python的一个分支，支持Python3并且修复了一些bug，是目前为止执行效率最高的驱动，但是安装的时候容易因为环境问题出错。</li>
+<li>pymysql：纯Python实现的驱动，执行效率不如mysqlclient，可以和Python代码无缝衔接。</li>
+<li>mysql-connector-python：MySQL官方推出的纯Python连接MySQL驱动，执行效率比pymysql慢。</li>
+</ul>
+<h4 id="安装pymysql"><a href="#安装pymysql" class="headerlink" title="安装pymysql"></a>安装pymysql</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pymysql -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装Flask-SQLAlchemy"><a href="#安装Flask-SQLAlchemy" class="headerlink" title="安装Flask-SQLAlchemy"></a>安装Flask-SQLAlchemy</h4><p>在Flask中，很少会使用pymysql直接写原生SQL语句去操作数据库，更多的是通过SQLAlchemy提供的ORM技术，其类似于操作普通Python对象那样来实现对数据库的增删改查，而Flask-SQLAlchemy是对SQLAlchemy的一个封装，使得在Flask中使用SQLAlchemy更加方便。Flask-SQLAlchemy需要单独安装，因为Flask-SQLAlchemy依赖SQLAlchemy，所以只要安装了Flask-SQLAlchemy，SQLAlchemy会自动安装。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install flask-sqlalchemy -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<p>SQLAlchemy类似于Jinjia2，是可以独立于Flask而被使用的，完全可以在任何Python程序中被使用。<a target="_blank" rel="noopener" href="https://www.sqlalchemy.org/">SQLAlchemy官方链接</a></p>
+<h3 id="Flask-SQLAlchemy基本使用"><a href="#Flask-SQLAlchemy基本使用" class="headerlink" title="Flask-SQLAlchemy基本使用"></a>Flask-SQLAlchemy基本使用</h3><h4 id="连接MySQL"><a href="#连接MySQL" class="headerlink" title="连接MySQL"></a>连接MySQL</h4><p>使用Flask-SQLAlchemy操作数据库之前，需要先创建一个由FLask-SQLAlchemy提供的SQLAlchemy类的对象，在创建这个类的时候，需要传入当前的app，然后要在app.config中设置SQLALCHEMY_DATABASE_URI，来配置数据库的连接。</p>
+<p>app.py内容如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, render_template</span><br><span class="line">from flask_sqlalchemy import SQLAlchemy</span><br><span class="line">from sqlalchemy import text</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">HOSTNAME = &#x27;127.0.0.1&#x27;  # 主机名</span><br><span class="line"></span><br><span class="line">PORT = 3306  # 端口号</span><br><span class="line"></span><br><span class="line">USERNAME = &#x27;root&#x27;  # 连接MySQL的用户名</span><br><span class="line"></span><br><span class="line">PASSWORD = &#x27;123456&#x27;  # 连接MySQL的密码</span><br><span class="line"></span><br><span class="line">DATABASE = &#x27;db_flask_test&#x27;  # 在MySQL创建的数据库名称</span><br><span class="line"></span><br><span class="line">app.config[&#x27;SQLALCHEMY_DATABASE_URI&#x27;] = f&#x27;mysql+pymysql://&#123;USERNAME&#125;:  	  	 &#123;PASSWORD&#125;@&#123;HOSTNAME&#125;:&#123;PORT&#125;/&#123;DATABASE&#125;?charset=utf8mb4&#x27;</span><br><span class="line"></span><br><span class="line">db = SQLAlchemy(app)</span><br><span class="line"></span><br><span class="line"># 在app.config中设置好连接的数据库信息，然后使用SQLAlchemy(app)创建一个db对象，QLAlchemy会自动读取app.config中连接数据库的信息</span><br><span class="line"></span><br><span class="line"># 测试是否连接成功</span><br><span class="line">with app.app_context():  //应用上下文</span><br><span class="line">    with db.engine.connect() as conn:</span><br><span class="line">        rs = conn.execute(text(&quot;select 1&quot;))</span><br><span class="line">        print(rs.fetchone())  //若打印1，则说明连接成功</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def hello_world():</span><br><span class="line">    return render_template(&#x27;index.html&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()  # 运行项目</span><br></pre></td></tr></table></figure>
+
+<p>注：测试时若报错，提示语句不是可执行的对象，可以使用sqlalchemy.text() 函数对语句进行封装。</p>
+<h4 id="ORM模型与表的映射"><a href="#ORM模型与表的映射" class="headerlink" title="ORM模型与表的映射"></a>ORM模型与表的映射</h4><h5 id="ORM模型"><a href="#ORM模型" class="headerlink" title="ORM模型"></a>ORM模型</h5><p>对象关系映射（Object Relationship Mapping），简称ORM，是一种可以用Python面向对象的方式来操作关系型数据库的技术，具有可以映射到数据库表能力的Python类我们称之为ORM模型。一个ORM模型与数据库中一个表相对应，ORM模型中的每个类属性分别对应表的每个字段，ORM模型的每个实例对象对应表中每条记录。ORM技术提供了面向对象的SQL交互的桥梁，让开发者用面向对象的方式操作数据库，使用ORM模型具有以下优势：</p>
+<ul>
+<li>开发效率高：几乎不需要写原生SQL语句，使用纯Python的方式操作数据库。</li>
+<li>安全性高：ORM模型底层代码对一些常见的安全问题，比如SQL注入做了防护，比直接使用SQL语句更加安全。</li>
+<li>灵活性强：Flask-SQLAlchemy底层支持SQLite、MySQL、Oracle、PostgreSQL等关系型数据库，但针对不同数据库，ORM模型代码几乎一模一样，只需要修改少量代码，即可完成底层数据库的更换。</li>
+</ul>
+<h5 id="映射方法"><a href="#映射方法" class="headerlink" title="映射方法"></a>映射方法</h5><h6 id="法一——通过db-create-all-映射。"><a href="#法一——通过db-create-all-映射。" class="headerlink" title="法一——通过db.create_all()映射。"></a>法一——通过db.create_all()映射。</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with app.app_context():</span><br><span class="line">    db.create_all()  # 将所有的表同步到数据库中</span><br></pre></td></tr></table></figure>
+
+<h6 id="法二——通过flask-migrate映射。"><a href="#法二——通过flask-migrate映射。" class="headerlink" title="法二——通过flask-migrate映射。"></a>法二——通过flask-migrate映射。</h6><p>db.create_all()只能识别新增了哪些模型，把新增的模型同步到数据库中，若是模型中字段值改变，它无法识别，这种情况下需要使用flask-migrate。</p>
+<p>安装flask-migrate代码如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install flask-migrate -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<p>flask-migrate三部曲，在命令行中执行如下指令。</p>
+<ul>
+<li>flask db init：只执行一次，执行后生成migrations文件夹。</li>
+<li>flask db migrate：识别ORM模型的改变，生成迁移脚本。</li>
+<li>flask db upgrade：运行迁移脚本，同步到数据库中。</li>
+</ul>
+<h4 id="MySQL的增删改查"><a href="#MySQL的增删改查" class="headerlink" title="MySQL的增删改查"></a>MySQL的增删改查</h4><p>使用ORM进行增删改查操作，需要先把操作添加到会话中，通过db.session可以获取到会话对象，会话对象只是在内存中，如果要把会话中的操作提交到数据库中，需要调用db.session.commit()操作，如果想要把会话中的操作回滚，则可以通过db.session.rollback()实现。</p>
+<h5 id="增加数据"><a href="#增加数据" class="headerlink" title="增加数据"></a>增加数据</h5><p>使用ORM创建一条数据，首先需使用ORM模型创建一个对象，然后添加到会话中，再进行commit操作即可。创建对象时，必须要通过关键字参数给字段赋值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class User(db.Model):</span><br><span class="line">    __tablename__ = &#x27;user&#x27;</span><br><span class="line">    id = db.Column(db.Integer, primary_key=True, autoincrement=True)</span><br><span class="line">    username = db.Column(db.String(100), nullable=False)</span><br><span class="line">    password = db.Column(db.String(100), nullable=False)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/add&quot;)</span><br><span class="line">def add_user():</span><br><span class="line">    # 1. 创建ORM对象</span><br><span class="line">    user = User(username=&quot;张三&quot;, password=&quot;123456&quot;)  </span><br><span class="line">    # sql: insert into user(username, password) values(&#x27;张三&#x27;, &#x27;123456&#x27;)</span><br><span class="line">    # 2. 将ORM对象添加到db.session中</span><br><span class="line">    db.session.add(user)</span><br><span class="line">    # 3. 将db.session中的改变同步到数据库中</span><br><span class="line">    db.session.commit()</span><br><span class="line">    return &#x27;用户添加成功&#x27;</span><br></pre></td></tr></table></figure>
+
+<h5 id="查找数据"><a href="#查找数据" class="headerlink" title="查找数据"></a>查找数据</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class User(db.Model):</span><br><span class="line">    __tablename__ = &#x27;user&#x27;</span><br><span class="line">    id = db.Column(db.Integer, primary_key=True, autoincrement=True)</span><br><span class="line">    username = db.Column(db.String(100), nullable=False)</span><br><span class="line">    password = db.Column(db.String(100), nullable=False)</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/query&quot;)</span><br><span class="line">def query_user():</span><br><span class="line">    # 1. get查找：根据主键查找</span><br><span class="line">    user = User.query.get(1)</span><br><span class="line">    print(f&#x27;&#123;user.id&#125;-&#123;user.username&#125;-&#123;user.password&#125;&#x27;)</span><br><span class="line">    # 2. filter_by查找，返回Query数组</span><br><span class="line">    users = User.query.filter_by(username=&#x27;张三&#x27;)</span><br><span class="line">    for user in users:</span><br><span class="line">        print(user.username)</span><br><span class="line">    return &#x27;数据查找成功！&#x27;</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class User(db.Model):</span><br><span class="line">    __tablename__ = &#x27;user&#x27;</span><br><span class="line">    id = db.Column(db.Integer, primary_key=True, autoincrement=True)</span><br><span class="line">    username = db.Column(db.String(100), nullable=False)</span><br><span class="line">    password = db.Column(db.String(100), nullable=False)</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/user/update&quot;)</span><br><span class="line">def update_user():</span><br><span class="line">    user = User.query.filter_by(username=&#x27;张三&#x27;).first()</span><br><span class="line">    user.password = &#x27;654321&#x27;</span><br><span class="line">    db.session.commit()</span><br><span class="line">    return &#x27;数据修改成功&#x27;</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class User(db.Model):</span><br><span class="line">    __tablename__ = &#x27;user&#x27;</span><br><span class="line">    id = db.Column(db.Integer, primary_key=True, autoincrement=True)</span><br><span class="line">    username = db.Column(db.String(100), nullable=False)</span><br><span class="line">    password = db.Column(db.String(100), nullable=False)</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/user/delete&#x27;)</span><br><span class="line">def delete_user():</span><br><span class="line">    # 1. 查找</span><br><span class="line">    user = User.query.get(1)</span><br><span class="line">    # 2. 从db.session中删除</span><br><span class="line">    db.session.delete(user)</span><br><span class="line">    # 3. 将db.session中的修改同步到数据库中</span><br><span class="line">    db.session.commit()</span><br><span class="line">    return &#x27;数据删除成功&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="ORM模型外键与表的关系"><a href="#ORM模型外键与表的关系" class="headerlink" title="ORM模型外键与表的关系"></a>ORM模型外键与表的关系</h4><p>关系型数据库中，多个表之间可以建立关系，表关系总体上可以分成三种，分别是：一对一、一对多（多对一）、多对多，表关系的建立是通过数据库层面的外键来实现的，创建外键是通过db.ForeignKey实现的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">class User(db.Model):</span><br><span class="line">    __tablename__ = &#x27;user&#x27;</span><br><span class="line">    id = db.Column(db.Integer, primary_key=True, autoincrement=True)</span><br><span class="line">    username = db.Column(db.String(100), nullable=False)</span><br><span class="line">    password = db.Column(db.String(100), nullable=False)</span><br><span class="line"></span><br><span class="line">    articles = db.relationship(&#x27;Article&#x27;, back_populates=&#x27;author&#x27;)</span><br><span class="line"></span><br><span class="line">class Article(db.Model):</span><br><span class="line">    __tablename__ = &#x27;article&#x27;</span><br><span class="line">    id = db.Column(db.Integer, primary_key=True, autoincrement=True)</span><br><span class="line">    title = db.Column(db.String(200), nullable=False)</span><br><span class="line">    content = db.Column(db.Text, nullable=False)</span><br><span class="line"></span><br><span class="line">    author_id = db.Column(db.Integer, db.ForeignKey(&quot;user.id&quot;))</span><br><span class="line">    author = db.relationship(&#x27;User&#x27;, back_populates=&#x27;articles&#x27;)</span><br><span class="line">    # author = db.relationship(&#x27;User&#x27;, backref=&#x27;articles&#x27;), backref会自动给User模型添加一个article属性，用来获取文章列表</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/article/add&quot;)</span><br><span class="line">def article_add():</span><br><span class="line">    article1 = Article(title=&#x27;Flask学习&#x27;, content=&quot;xxxxx&quot;)</span><br><span class="line">    article1.author = User.query.get(2)</span><br><span class="line"></span><br><span class="line">    article2 = Article(title=&#x27;Django学习&#x27;, content=&#x27;xxxxx&#x27;)</span><br><span class="line">    article2.author = User.query.get(2)</span><br><span class="line"></span><br><span class="line">    # 添加到session中</span><br><span class="line">    db.session.add_all([article1, article2])</span><br><span class="line">    # 同步session中的数据到数据库中</span><br><span class="line">    db.session.commit()</span><br><span class="line">    return &#x27;文章添加成功&#x27;</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/article/query&#x27;)</span><br><span class="line">def query_article():</span><br><span class="line">    user = User.query.get(2)</span><br><span class="line">    for article in user.articles:</span><br><span class="line">        print(article.title)</span><br><span class="line">    return &#x27;文章查找成功&#x27;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>pj
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://pj-blog.com/2023/01/30/20-31-07/" title="初识Flask">http://pj-blog.com/2023/01/30/20-31-07/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    如有错漏之处，恳请指正！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/29/10-44-03/" rel="prev" title="AngularJS项目起步">
+                  <i class="fa fa-chevron-left"></i> AngularJS项目起步
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/02/01/16-10-02/" rel="next" title="Flask中构建API接口">
+                  Flask中构建API接口 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NzYyMC8zNDA4NA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pj</span>
+</div>
+<div class="wordcount">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        站点总访问量 :<span id="busuanzi_value_site_pv"></span>次
+      </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-chart-line"></i>
+          </span>
+          <span title="站点总字数">97k</span>
+        </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-coffee"></i>
+          </span>
+          <span title="站点阅读时长">1:28</span>
+        </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

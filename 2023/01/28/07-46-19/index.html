@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录AngularJS的工程化过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AngularJS的工程化">
+<meta property="og:url" content="http://pj-blog.com/2023/01/28/07-46-19/index.html">
+<meta property="og:site_name" content="pj&#39;s blog">
+<meta property="og:description" content="记录AngularJS的工程化过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-27T23:46:19.000Z">
+<meta property="article:modified_time" content="2023-01-29T02:18:18.060Z">
+<meta property="article:author" content="pj">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://pj-blog.com/2023/01/28/07-46-19/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2023/01/28/07-46-19/","path":"2023/01/28/07-46-19/","title":"AngularJS的工程化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AngularJS的工程化 | pj's blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">pj's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Fortune favors the bold.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Angularjs%E7%9A%84%E5%B7%A5%E7%A8%8B%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">Angularjs的工程化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AMD%E8%A7%84%E8%8C%83%E5%92%8CCMD%E8%A7%84%E8%8C%83"><span class="nav-number">1.1.</span> <span class="nav-text">AMD规范和CMD规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.1.</span> <span class="nav-text">为什么需要模块化管理工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMD%E8%A7%84%E8%8C%83"><span class="nav-number">1.1.2.</span> <span class="nav-text">AMD规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#define%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">define函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">项目代码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#test-html"><span class="nav-number">1.1.2.2.2.1.</span> <span class="nav-text">test.html</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#main-js"><span class="nav-number">1.1.2.2.2.2.</span> <span class="nav-text">main.js</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#math-js"><span class="nav-number">1.1.2.2.2.3.</span> <span class="nav-text">math.js</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pi-js"><span class="nav-number">1.1.2.2.2.4.</span> <span class="nav-text">pi.js</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">项目说明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD%E8%A7%84%E8%8C%83"><span class="nav-number">1.1.3.</span> <span class="nav-text">CMD规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#define%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">define函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularJS%E7%9A%84%E5%B7%A5%E7%A8%8B%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">AngularJS的工程化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#angular-async-loader"><span class="nav-number">1.2.1.</span> <span class="nav-text">angular-async-loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E7%AB%AF%E4%BE%9D%E8%B5%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">安装前端依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%A6%E5%86%99%E4%B8%89%E5%A4%A7%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">书写三大文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bootstrap-js"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">bootstrap.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#app-js"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">app.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#app-routes-js"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">app-routes.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#index-html"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">index.html</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ngApp"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">ngApp</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#root"><span class="nav-number">1.2.3.5.1.</span> <span class="nav-text">root</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#RootCtrl-js"><span class="nav-number">1.2.3.5.1.1.</span> <span class="nav-text">RootCtrl.js</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#rootService-js"><span class="nav-number">1.2.3.5.1.2.</span> <span class="nav-text">rootService.js</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#template-html"><span class="nav-number">1.2.3.5.1.3.</span> <span class="nav-text">template.html</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#home"><span class="nav-number">1.2.3.6.</span> <span class="nav-text">home</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#HomeCtrl-js"><span class="nav-number">1.2.3.6.0.1.</span> <span class="nav-text">HomeCtrl.js</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#template-html-1"><span class="nav-number">1.2.3.6.0.2.</span> <span class="nav-text">template.html</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jquery%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">jquery的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%95%E4%B8%80%EF%BC%9A"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">法一：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%95%E4%BA%8C%EF%BC%9A"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">法二：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84-1"><span class="nav-number">1.2.5.</span> <span class="nav-text">项目结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E5%90%88nodejs%E5%81%9A%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.3.</span> <span class="nav-text">结合nodejs做项目</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pj"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">pj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2023/01/28/07-46-19/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="pj">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="pj's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AngularJS的工程化 | pj's blog">
+      <meta itemprop="description" content="记录AngularJS的工程化过程">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AngularJS的工程化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-28 07:46:19" itemprop="dateCreated datePublished" datetime="2023-01-28T07:46:19+08:00">2023-01-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-29 10:18:18" itemprop="dateModified" datetime="2023-01-29T10:18:18+08:00">2023-01-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AngularJS/" itemprop="url" rel="index"><span itemprop="name">AngularJS</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">记录AngularJS的工程化过程</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Angularjs的工程化"><a href="#Angularjs的工程化" class="headerlink" title="Angularjs的工程化"></a>Angularjs的工程化</h1><h2 id="AMD规范和CMD规范"><a href="#AMD规范和CMD规范" class="headerlink" title="AMD规范和CMD规范"></a>AMD规范和CMD规范</h2><h3 id="为什么需要模块化管理工具"><a href="#为什么需要模块化管理工具" class="headerlink" title="为什么需要模块化管理工具"></a>为什么需要模块化管理工具</h3><p>在编写项目时可能需要加载很多js文件，若b.js依赖a.js，且a.js比b.js大很多，那么浏览器会让b.js等待a.js加载完毕后再去执行b.js里的内容；而即使d.js并不依赖a.js，b.js，c.js，也会等待这三个文件均加载完毕才执行，为了让浏览器能够按需加载，提出了模块化管理工具。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;js/a.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;js/b.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;js/c.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;js/d.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="AMD规范"><a href="#AMD规范" class="headerlink" title="AMD规范"></a>AMD规范</h3><p>全称为Asynchronous Module Defined，即异步模块管理，它通过使用依赖注入等方法完整描述了模块的定义、依赖关系、引用关系以及加载机制，AngularJS、RequireJS均是符合AMD规范的。</p>
+<h4 id="define函数"><a href="#define函数" class="headerlink" title="define函数"></a>define函数</h4><p>函数中有三个参数，前两个参数可以省略，第三个参数是模块的具体实现本身。  当define函数执行时，它首先会异步调用第二个参数中列出的依赖模块，当所有的模块被载入完成之后，如果第三个参数是一个回调函数则执行，然后告诉系统模块可用，也通知了依赖于自己的模块自己已经可用。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">define([module-name?], [array-of-dependencies?], [module-factory-or-object]);</span><br><span class="line"></span><br><span class="line">其中：</span><br><span class="line">module-name: 模块标识，可以省略。</span><br><span class="line">array-of-dependencies: 所依赖的模块，可以省略。</span><br><span class="line">module-factory-or-object: 模块的实现，或者一个JavaScript对象。</span><br></pre></td></tr></table></figure>
+
+<p>下面代码定义了一个alpha模块，并且依赖于内置的require，exports模块，以及外部的beta模块。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define(&quot;alpha&quot;, [&quot;require&quot;, &quot;exports&quot;, &quot;beta&quot;], function (require, exports, beta) &#123;</span><br><span class="line">    exports.verb = function() &#123;</span><br><span class="line">    return beta.verb();</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><h5 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h5><p>案例<br>│  test.html<br>│<br>└─js<br>    │  main.js<br>    │  math.js<br>    │  pi.js<br>    │<br>    └─lib<br>            require.js</p>
+<h5 id="项目代码"><a href="#项目代码" class="headerlink" title="项目代码"></a>项目代码</h5><h6 id="test-html"><a href="#test-html" class="headerlink" title="test.html"></a>test.html</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;title&gt;RequireJS学习&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script data-main=&quot;js/main.js&quot; src=&quot;js/lib/require.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;!-- main.js是主入口文件 --&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">requirejs.config(&#123;</span><br><span class="line">	baseUrl: &#x27;js&#x27;,  //所有js程序的根目录</span><br><span class="line">	paths: &#123;</span><br><span class="line">		//别名</span><br><span class="line">		&quot;math&quot;: &quot;math&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">requirejs([&quot;math&quot;],</span><br><span class="line">	function(math)&#123;</span><br><span class="line">alert(math.squre(8));</span><br><span class="line">alert(math.area(10));</span><br><span class="line">	&#125;);</span><br><span class="line">alert(&quot;hello&quot;);</span><br></pre></td></tr></table></figure>
+
+<h6 id="math-js"><a href="#math-js" class="headerlink" title="math.js"></a>math.js</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">define([&quot;pi&quot;], function(pi)&#123;</span><br><span class="line">	alert(&quot;我是math&quot;);</span><br><span class="line">	return &#123;</span><br><span class="line">		&quot;squre&quot;: function(number)&#123;</span><br><span class="line">			return number * number;</span><br><span class="line">		&#125;,</span><br><span class="line">		&quot;area&quot;: function(r)&#123;</span><br><span class="line">			return pi.pi * r *r;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h6 id="pi-js"><a href="#pi-js" class="headerlink" title="pi.js"></a>pi.js</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define(&#123;</span><br><span class="line">	&quot;pi&quot;: 3.1415926</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="项目说明"><a href="#项目说明" class="headerlink" title="项目说明"></a>项目说明</h5><ul>
+<li><p>在html文件中引包时需要同时指定require.js文件和main.js文件；</p>
+</li>
+<li><p>main.js是主入口文件，只有主入口main.js能用requirejs，其他入口只能用define；</p>
+</li>
+<li><p>math.js用define定义模块，模块暴露的API用return返回；</p>
+</li>
+<li><p>main.js中如果有语句不需要依赖别人的语句，可以不写在回调函数里面，而现在很少有机会不在回调函数中写语句，即AMD和CMD越来越像。</p>
+</li>
+</ul>
+<h3 id="CMD规范"><a href="#CMD规范" class="headerlink" title="CMD规范"></a>CMD规范</h3><p>全称为Common Module Defined，即普通模块管理，其执行过程是懒式的。NodeJS、SeaJS、CommonJS、webpack均是符合CMD规范的。</p>
+<h4 id="define函数-1"><a href="#define函数-1" class="headerlink" title="define函数"></a>define函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define(function(require, exports, module) &#123;  </span><br><span class="line">      // 模块定义在此  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="AngularJS的工程化"><a href="#AngularJS的工程化" class="headerlink" title="AngularJS的工程化"></a>AngularJS的工程化</h2><h3 id="angular-async-loader"><a href="#angular-async-loader" class="headerlink" title="angular-async-loader"></a>angular-async-loader</h3><p>angular-async-loader可以轻松解决ReuqireJS和AngularJS之间的粘合问题。<a target="_blank" rel="noopener" href="https://github.com/subchen/angular-async-loader">angular-async-loader官网</a></p>
+<h3 id="安装前端依赖"><a href="#安装前端依赖" class="headerlink" title="安装前端依赖"></a>安装前端依赖</h3><p>大体思路就是用RequireJS配置AngularJS项目，配置步骤如下。</p>
+<ul>
+<li><p>进入项目文件夹，在命令行窗口执行下列指令，创建bower前端依赖文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建.bowerrc文件并进行配置（先创建一个空文档，再在命令行用rename重命名为.bowerrc），配置内容如下，配置后，用bower下载的模块会生成在assets文件夹下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;directory&quot; : &quot;assets&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装AngularJS。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install angular --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装ui-router。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install angular-ui-router --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装RequireJS。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install requirejs --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装angular-async-loader。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install angular-async-loader --save</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="书写三大文件"><a href="#书写三大文件" class="headerlink" title="书写三大文件"></a>书写三大文件</h3><p>三大文件为app-routes.js、app.js、bootstrap.js。</p>
+<p>在项目根目录下分别创建ngApp文件夹、app-routes.js、app.js、bootstrap.js、index.html文件。</p>
+<h4 id="bootstrap-js"><a href="#bootstrap-js" class="headerlink" title="bootstrap.js"></a>bootstrap.js</h4><p>bootstrap.js是RequireJS的入口文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">require.config(&#123;</span><br><span class="line">    baseUrl: &#x27;/&#x27;,</span><br><span class="line">    //别名</span><br><span class="line">    paths: &#123;</span><br><span class="line">        &#x27;angular&#x27;: &#x27;assets/angular/angular.min&#x27;,</span><br><span class="line">        &#x27;angular-ui-router&#x27;: &#x27;assets/angular-ui-router/release/angular-ui-router.min&#x27;,</span><br><span class="line">        &#x27;angular-async-loader&#x27;: &#x27;assets/angular-async-loader/dist/angular-async-loader.min&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    //声明paths中元素暴露的接口和依赖</span><br><span class="line">    shim: &#123;</span><br><span class="line">        &#x27;angular&#x27;: &#123;exports: &#x27;angular&#x27;&#125;,  //暴露的是angular</span><br><span class="line">        &#x27;angular-ui-router&#x27;: &#123;deps: [&#x27;angular&#x27;]&#125;  //依赖的是angular</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//核心入口</span><br><span class="line">require([&#x27;angular&#x27;, &#x27;./app-routes&#x27;], function (angular) &#123;</span><br><span class="line">    //当整个文档就绪之后</span><br><span class="line">    angular.element(document).ready(function () &#123;</span><br><span class="line">        //angular.bootstrap是一个方法，表示启动angular</span><br><span class="line">        angular.bootstrap(document, [&#x27;myapp&#x27;]);</span><br><span class="line">        //通过类名添加ng-app指令，也可以通过attr来添加</span><br><span class="line">        angular.element(document).find(&#x27;html&#x27;).addClass(&#x27;ng-app&#x27;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="app-js"><a href="#app-js" class="headerlink" title="app.js"></a>app.js</h4><p>app.js中创建了app对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">define(function (require, exports, module) &#123;</span><br><span class="line">    //这是一个CMD规范的模块，模块的作用是向外暴露app整体</span><br><span class="line">    //AMD只能向外暴露json形式的API</span><br><span class="line"></span><br><span class="line">    //引入依赖</span><br><span class="line">    var angular = require(&#x27;angular&#x27;);</span><br><span class="line">    var asyncLoader = require(&#x27;angular-async-loader&#x27;);</span><br><span class="line"></span><br><span class="line">    require(&#x27;angular-ui-router&#x27;);</span><br><span class="line"></span><br><span class="line">    //创建app对象，app对象依赖ui.router</span><br><span class="line">    var app = angular.module(&#x27;app&#x27;, [&#x27;ui.router&#x27;]);</span><br><span class="line"></span><br><span class="line">    // initialze app module for angular-async-loader</span><br><span class="line">    asyncLoader.configure(app);</span><br><span class="line">    //向外暴露</span><br><span class="line">    module.exports = app;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="app-routes-js"><a href="#app-routes-js" class="headerlink" title="app-routes.js"></a>app-routes.js</h4><p>app-routes.js中定义了路由，这里采用了连续依赖，bootstrap.js依赖app-routes.js，app-routes.js依赖app.js。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">define(function (require) &#123;</span><br><span class="line">    //引入app对象</span><br><span class="line">    var app = require(&#x27;./app&#x27;);</span><br><span class="line">    //定义路由</span><br><span class="line">    app.config([&#x27;$stateProvider&#x27;, &#x27;$urlRouterProvider&#x27;, function ($stateProvider, $urlRouterProvider) &#123;</span><br><span class="line">        $urlRouterProvider.otherwise(&#x27;/home&#x27;);</span><br><span class="line"></span><br><span class="line">        $stateProvider</span><br><span class="line">            .state(&#x27;home&#x27;, &#123;</span><br><span class="line">                url: &#x27;/home&#x27;,</span><br><span class="line">                template: &#x27;&lt;h1&gt;我是首页！&lt;/h1&gt;&#x27;</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="index-html"><a href="#index-html" class="headerlink" title="index.html"></a>index.html</h4><p>index.html是唯一的单页面，但不表示只存在一个html页面，其他页面可作为模板存在，在index.html文件中创建一个ui-view容器，然后用RequireJS语法引用入口文件bootstrap.js。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot; /&gt;</span><br><span class="line">	&lt;title&gt;</span><br><span class="line">		测试系统</span><br><span class="line">	&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;ui-view&gt;&lt;/ui-view&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;assets/requirejs/require.js&quot; data-main=&quot;bootstrap.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="ngApp"><a href="#ngApp" class="headerlink" title="ngApp"></a>ngApp</h4><p>ngApp里可根据场景创建相应文件夹，存放编写控制器、服务和指令等内容的js文件。此处创建root文件夹和home文件夹。</p>
+<h5 id="root"><a href="#root" class="headerlink" title="root"></a>root</h5><h6 id="RootCtrl-js"><a href="#RootCtrl-js" class="headerlink" title="RootCtrl.js"></a>RootCtrl.js</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">define(function (require) &#123;</span><br><span class="line">    var app = require(&#x27;app&#x27;);</span><br><span class="line">    require(&#x27;./rootService&#x27;);</span><br><span class="line">    // dynamic load services here or add into dependencies of ui-router state config</span><br><span class="line">    // require(&#x27;../services/usersService&#x27;);</span><br><span class="line"></span><br><span class="line">    app.controller(&#x27;RootCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;rootService&#x27;, function ($scope, rootService) &#123;</span><br><span class="line">        this.a = rootService.m;</span><br><span class="line">    &#125;]);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h6 id="rootService-js"><a href="#rootService-js" class="headerlink" title="rootService.js"></a>rootService.js</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">define(function (require) &#123;</span><br><span class="line">    var app = require(&#x27;app&#x27;);</span><br><span class="line"></span><br><span class="line">    // dynamic load services here or add into dependencies of ui-router state config</span><br><span class="line">    // require(&#x27;../services/usersService&#x27;);</span><br><span class="line"></span><br><span class="line">    app.factory(&quot;rootService&quot;, function () &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            m : 9</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h6 id="template-html"><a href="#template-html" class="headerlink" title="template.html"></a>template.html</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;header&gt;</span><br><span class="line">    &lt;h1&gt;我是root的template文件&lt;/h1&gt;</span><br><span class="line">    &#123;&#123;rootCtrl.a&#125;&#125;</span><br><span class="line">    &lt;nav&gt;</span><br><span class="line">      &lt;a ui-sref=&quot;root.home&quot; ui-sref-active=&quot;cur&quot;&gt;首页&lt;/a&gt;</span><br><span class="line">    &lt;/nav&gt;</span><br><span class="line">  &lt;/header&gt;</span><br><span class="line">  &lt;ui-view&gt; &lt;/ui-view&gt;</span><br><span class="line">  &lt;footer&gt;我是footer&lt;/footer&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="home"><a href="#home" class="headerlink" title="home"></a>home</h4><h6 id="HomeCtrl-js"><a href="#HomeCtrl-js" class="headerlink" title="HomeCtrl.js"></a>HomeCtrl.js</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">define(function (require) &#123;</span><br><span class="line">    var app = require(&#x27;app&#x27;);</span><br><span class="line">    require(&#x27;jquery&#x27;);  //var $ = require(&#x27;jquery&#x27;);为什么不用变量接收，因为jquery的原理就是给window对象添加属性</span><br><span class="line">    require(&#x27;jquery-ui&#x27;);</span><br><span class="line">    app.controller(&#x27;HomeCtrl&#x27;, [function () &#123;</span><br><span class="line">        this.a = 100;</span><br><span class="line">        $(&#x27;.box&#x27;).animate(&#123; &#x27;font-size&#x27;: 100 &#125;, 1000, function () &#123;</span><br><span class="line">            $(this).css(&quot;color&quot;, &quot;red&quot;);</span><br><span class="line">            $(this).draggable();</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;]);</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h6 id="template-html-1"><a href="#template-html-1" class="headerlink" title="template.html"></a>template.html</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h1&gt;我是首页。&#123;&#123;homeCtrl.a&#125;&#125;&lt;/h1&gt;</span><br><span class="line">  &lt;div class=&quot;box&quot;&gt;你好&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="jquery的引用"><a href="#jquery的引用" class="headerlink" title="jquery的引用"></a>jquery的引用</h3><h4 id="法一："><a href="#法一：" class="headerlink" title="法一："></a>法一：</h4><p>最简单的方法就是在index.html上引用，这样可以在全局上使用$函数，缺点是不管页面是否使用jquery，总是先会加载完毕。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot; /&gt;</span><br><span class="line">    &lt;title&gt;测试系统&lt;/title&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/root.css&quot; /&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;ui-view&gt;&lt;/ui-view&gt;</span><br><span class="line">    &lt;script</span><br><span class="line">      type=&quot;text/javascript&quot;</span><br><span class="line">      src=&quot;/assets/jquery/dist/jquery.min.js&quot;</span><br><span class="line">    &gt;&lt;/script&gt;</span><br><span class="line">    &lt;script</span><br><span class="line">      type=&quot;text/javascript&quot;</span><br><span class="line">      src=&quot;/assets/requirejs/require.js&quot;</span><br><span class="line">      data-main=&quot;bootstrap.js&quot;</span><br><span class="line">    &gt;&lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="法二："><a href="#法二：" class="headerlink" title="法二："></a>法二：</h4><p>也可以在bootstrap.js上起一个别名，使用RequireJS加载jquery。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">require.config(&#123;</span><br><span class="line">    baseUrl: &#x27;/&#x27;,</span><br><span class="line">    //别名</span><br><span class="line">    paths: &#123;</span><br><span class="line">        &#x27;angular&#x27;: &#x27;assets/angular/angular.min&#x27;,</span><br><span class="line">        &#x27;angular-ui-router&#x27;: &#x27;assets/angular-ui-router/release/angular-ui-router.min&#x27;,</span><br><span class="line">        &#x27;angular-async-loader&#x27;: &#x27;assets/angular-async-loader/dist/angular-async-loader.min&#x27;,</span><br><span class="line">        &#x27;jquery&#x27;: &#x27;assets/jquery/dist/jquery.min&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    //声明paths中元素暴露的接口和依赖</span><br><span class="line">    shim: &#123;</span><br><span class="line">        &#x27;angular&#x27;: &#123;exports: &#x27;angular&#x27;&#125;,  //暴露的是angular</span><br><span class="line">        &#x27;angular-ui-router&#x27;: &#123; deps: [&#x27;angular&#x27;] &#125;,  //依赖的是angular</span><br><span class="line">        &#x27;jquery&#x27;: &#123;exports: &#x27;jquery&#x27;&#125;  //暴露的是jquery</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>然后在需要使用jquery的控制器中写入如下代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">define(function (require) &#123;</span><br><span class="line">    var app = require(&#x27;app&#x27;);</span><br><span class="line">    var jquery = require(&#x27;jquery&#x27;);</span><br><span class="line">    app.controller(&#x27;HomeCtrl&#x27;, [function () &#123;</span><br><span class="line">        jquery(&#x27;.box&#x27;).animate(&#123; &#x27;font-size&#x27;: 100 &#125;, 1000);</span><br><span class="line">    &#125;]);</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>若要引入jquery的插件，需要bower下载jquery-ui，然后改变bootstrap.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">require.config(&#123;</span><br><span class="line">    baseUrl: &#x27;/&#x27;,</span><br><span class="line">    //别名</span><br><span class="line">    paths: &#123;</span><br><span class="line">        &#x27;angular&#x27;: &#x27;assets/angular/angular.min&#x27;,</span><br><span class="line">        &#x27;angular-ui-router&#x27;: &#x27;assets/angular-ui-router/release/angular-ui-router.min&#x27;,</span><br><span class="line">        &#x27;angular-async-loader&#x27;: &#x27;assets/angular-async-loader/dist/angular-async-loader.min&#x27;,</span><br><span class="line">        &#x27;jquery&#x27;: &#x27;assets/jquery/dist/jquery.min&#x27;,</span><br><span class="line">        &#x27;jquery-ui&#x27;: &#x27;assets/jquery-ui/jquery-ui.min&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    //声明paths中元素暴露的接口和依赖</span><br><span class="line">    shim: &#123;</span><br><span class="line">        &#x27;angular&#x27;: &#123;exports: &#x27;angular&#x27;&#125;,  //暴露的是angular</span><br><span class="line">        &#x27;angular-ui-router&#x27;: &#123; deps: [&#x27;angular&#x27;] &#125;,  //依赖的是angular</span><br><span class="line">        &#x27;jquery&#x27;: &#123;exports: &#x27;jquery&#x27;&#125;,  //暴露的是jquery</span><br><span class="line">        &#x27;jquery-ui&#x27;: &#123; deps: [&#x27;jquery&#x27;] &#125;,  //依赖的是jquery</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在控制器中写入如下代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">define(function (require) &#123;</span><br><span class="line">    var app = require(&#x27;app&#x27;);</span><br><span class="line">    var $ = require(&#x27;jquery&#x27;);</span><br><span class="line">    require(&#x27;jquery-ui&#x27;);</span><br><span class="line">    app.controller(&#x27;HomeCtrl&#x27;, [function () &#123;</span><br><span class="line">        this.a = 100;</span><br><span class="line">        $(&#x27;.box&#x27;).animate(&#123; &#x27;font-size&#x27;: 100 &#125;, 1000, function () &#123;</span><br><span class="line">            $(this).css(&quot;color&quot;, &quot;red&quot;);</span><br><span class="line">            $(this).draggable();</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;]);</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="项目结构-1"><a href="#项目结构-1" class="headerlink" title="项目结构"></a>项目结构</h3><p>项目<br>│  app-routes.js<br>│  app.js<br>│  bootstrap.js<br>│  index.html<br>│<br>├─assets<br>│  ├─angular<br>│  ├─angular-async-loader<br>│  ├─angular-ui-router<br>│  ├─jquery<br>│  ├─jquery-ui<br>│<br>├─css<br>│      root.css<br>│<br>└─ngApp<br>    ├─home<br>    │      HomeCtrl.js<br>    │      template.html<br>    │<br>    └─root<br>            RootCtrl.js<br>            rootService.js<br>            template.html</p>
+<p>注：在项目中使用ctrl+p，可以定位到目标文件。</p>
+<h2 id="结合nodejs做项目"><a href="#结合nodejs做项目" class="headerlink" title="结合nodejs做项目"></a>结合nodejs做项目</h2><p>前端MVVM架构，后端MVC架构（后端没有V了，不再使用ejs这种后端模板）。</p>
+<p>将AngularJS的层次放到www文件夹中，	使用nodejs与express来跑静态路由，工作在3000端口。</p>
+
+    </div>
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>pj
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://pj-blog.com/2023/01/28/07-46-19/" title="AngularJS的工程化">http://pj-blog.com/2023/01/28/07-46-19/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    如有错漏之处，恳请指正！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/27/22-08-22/" rel="prev" title="Angularjs的重要概念">
+                  <i class="fa fa-chevron-left"></i> Angularjs的重要概念
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/29/10-44-03/" rel="next" title="AngularJS项目起步">
+                  AngularJS项目起步 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81NzYyMC8zNDA4NA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pj</span>
+</div>
+<div class="wordcount">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        站点总访问量 :<span id="busuanzi_value_site_pv"></span>次
+      </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-chart-line"></i>
+          </span>
+          <span title="站点总字数">97k</span>
+        </span>
+        <span class="post-meta-item">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-coffee"></i>
+          </span>
+          <span title="站点阅读时长">1:28</span>
+        </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>
