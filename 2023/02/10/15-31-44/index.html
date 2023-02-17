@@ -19,25 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"pj-blog.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="article">
-<meta property="og:title" content="使用RNN实现文本生成">
-<meta property="og:url" content="http://pj-blog.com/2022/11/30/14-21-44/index.html">
+    <meta name="description" content="记录DBSCAN学习笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DBSCAN学习笔记">
+<meta property="og:url" content="http://pj-blog.com/2023/02/10/15-31-44/index.html">
 <meta property="og:site_name" content="pj&#39;s blog">
+<meta property="og:description" content="记录DBSCAN学习笔记。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-30T06:21:44.000Z">
-<meta property="article:modified_time" content="2022-11-30T06:21:44.560Z">
+<meta property="article:published_time" content="2023-02-10T07:31:44.000Z">
+<meta property="article:modified_time" content="2023-02-10T09:57:18.900Z">
 <meta property="article:author" content="pj">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://pj-blog.com/2022/11/30/14-21-44/">
+<link rel="canonical" href="http://pj-blog.com/2023/02/10/15-31-44/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2022/11/30/14-21-44/","path":"2022/11/30/14-21-44/","title":"使用RNN实现文本生成"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://pj-blog.com/2023/02/10/15-31-44/","path":"2023/02/10/15-31-44/","title":"DBSCAN学习笔记"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>使用RNN实现文本生成 | pj's blog</title>
+<title>DBSCAN学习笔记 | pj's blog</title>
   
 
 
@@ -126,7 +128,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -139,6 +141,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.1.</span> <span class="nav-text">具体步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E9%80%89%E6%8B%A9"><span class="nav-number">2.2.</span> <span class="nav-text">参数选择</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%8F%AF%E8%A7%86%E5%8C%96%E6%BC%94%E7%A4%BA"><span class="nav-number">4.</span> <span class="nav-text">算法可视化演示</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -186,7 +189,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2022/11/30/14-21-44/">
+    <link itemprop="mainEntityOfPage" href="http://pj-blog.com/2023/02/10/15-31-44/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -199,12 +202,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="使用RNN实现文本生成 | pj's blog">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="DBSCAN学习笔记 | pj's blog">
+      <meta itemprop="description" content="记录DBSCAN学习笔记。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          使用RNN实现文本生成
+          DBSCAN学习笔记
         </h1>
 
         <div class="post-meta-container">
@@ -214,8 +217,18 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-11-30 14:21:44" itemprop="dateCreated datePublished" datetime="2022-11-30T14:21:44+08:00">2022-11-30</time>
+      <time title="创建时间：2023-02-10 15:31:44 / 修改时间：17:57:18" itemprop="dateCreated datePublished" datetime="2023-02-10T15:31:44+08:00">2023-02-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
     </span>
 
   
@@ -232,7 +245,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>0</span>
+      <span>952</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -243,6 +256,7 @@
     </span>
 </div>
 
+            <div class="post-description">记录DBSCAN学习笔记。</div>
         </div>
       </header>
 
@@ -250,7 +264,54 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><ul>
+<li><p>核心点：若某个点的密度达到算法设定的阈值，即ε-邻域内点的数量（包括自己）不小于minPts，则该点为核心点。</p>
+</li>
+<li><p>边界点：在ε-邻域内点的数量小于minPts，但是落在核心点邻域内的点。</p>
+</li>
+<li><p>噪声点：不属于任何一个簇的点，从任何一个核心点出发都是密度不可达的。</p>
+</li>
+<li><p>ε-邻域：设定的半径r。</p>
+</li>
+<li><p>直接密度可达：若某点p在点q的r邻域内，且q是核心点，则称p从q出发是直接密度可达的。</p>
+</li>
+<li><p>密度可达：若有一个点的序列q0、q1…qk，对任意q0-qi-qk是直接密度可达的，则称从q0到qk密度可达，这实际上是直接密度可达的传播。</p>
+</li>
+<li><p>密度相连：若从某核心点p出发，点q和点k都是密度可达的，则称点q和点k是密度相连的。</p>
+</li>
+</ul>
+<p>如果p是核心点，则它与所有由它可达的点（包括核心点和边界点）形成一个簇，每个簇拥有最少一个核心点，边界点也可以是簇的一部分，但它在簇的边缘位置，因为它不能到达更多的点。在DBSCAN里，簇可以理解为被低密度区域分隔开的稠密对象区域，DBSCAN将具有足够高密度的区域划分为簇，并在具有噪声的空间数据中发现任意形状的簇。</p>
+<h1 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h1><p>DBSCAN通过检查空间数据中每点的邻域来搜索簇。</p>
+<p>如果点p的邻域包含的点多于minPts，则创建一个以p为核心点的新簇，然后，DBSCAN迭代地聚集从这些核心点密度可达的对象，这个过程可能涉及一些密度可达簇的合并，当没有新的点可以添加到任何簇时，该过程结束。</p>
+<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><ul>
+<li>根据ϵ寻找每个点的邻域，找出核心点；</li>
+<li>对于每一个核心点，如果这个核心点未被分配到某一个簇时，创建一个新的簇；</li>
+<li>寻找这个核心点所有邻域点，并循环寻找这些邻域点相应的邻域点，将所有这些点分配到同一个簇；</li>
+<li>重复以上三步，直到左右核心点都被分配。对于不属于任何簇的点即为噪声点。</li>
+</ul>
+<h2 id="参数选择"><a href="#参数选择" class="headerlink" title="参数选择"></a>参数选择</h2><p>半径r：根据k距离来设定。</p>
+<p>首先选中一个点，计算它和所有其它点的距离，从小到大排序为d1、d2、d3…，假如d3和d4之间的差异很大，就可以认为d1到d3之间的距离是合适的，将其设为半径。</p>
+<p>minPts：一般可通过多次尝试设置。</p>
+<h1 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li><p>不需要指定簇个数；</p>
+</li>
+<li><p>可以发现任意形状的簇；</p>
+</li>
+<li><p>擅长找到离群点（检测任务）；</p>
+</li>
+<li><p>仅需两个参数。</p>
+</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li><p>不适用于高维数据；</p>
+</li>
+<li><p>参数对结果影响非常大；</p>
+</li>
+<li><p>sklearn中效率很慢（可以应用数据削减策略）。</p>
+</li>
+</ul>
+<h1 id="算法可视化演示"><a href="#算法可视化演示" class="headerlink" title="算法可视化演示"></a>算法可视化演示</h1><p><a target="_blank" rel="noopener" href="https://www.naftaliharris.com/blog/visualizing-dbscan-clustering/">DBSCAN的可视化演示</a></p>
+
     </div>
 
 <div>
@@ -278,7 +339,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://pj-blog.com/2022/11/30/14-21-44/" title="使用RNN实现文本生成">http://pj-blog.com/2022/11/30/14-21-44/</a>
+      <a href="http://pj-blog.com/2023/02/10/15-31-44/" title="DBSCAN学习笔记">http://pj-blog.com/2023/02/10/15-31-44/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -292,14 +353,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/11/28/22-05-30/" rel="prev" title="使用Python实现多线程、多进程、异步IO的socket通信">
-                  <i class="fa fa-chevron-left"></i> 使用Python实现多线程、多进程、异步IO的socket通信
+                <a href="/2023/02/10/08-05-58/" rel="prev" title="k-means学习笔记">
+                  <i class="fa fa-chevron-left"></i> k-means学习笔记
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/12/07/11-39-16/" rel="next" title="使用PyLint评估分析代码质量">
-                  使用PyLint评估分析代码质量 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
