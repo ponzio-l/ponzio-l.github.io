@@ -1,0 +1,9 @@
+.registPage-father {
+  position: relative;
+}
+
+.registPage-son {
+  position: relative;
+  left: 25%;
+  margin-top: 200px;
+}

@@ -1,0 +1,105 @@
+<div class="profilePage-father" ng-if="rootCtrl.isLogin()">
+  <div class="profilePage-son">
+    <div class="container">
+      <div>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <button
+              class="{{profileCtrl.idx == 0 ? 'nav-link active' : 'nav-link'}}"
+              ng-click="profileCtrl.changeTab(0)"
+            >
+              基本信息修改
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              ng-click="profileCtrl.changeTab(1)"
+              class="{{profileCtrl.idx == 1 ? 'nav-link active' : 'nav-link'}}"
+            >
+              密码修改
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div ng-if="profileCtrl.idx == 0">
+            <form action="" class="profile-form">
+              <div class="row">
+                <div class="col-lg-6">
+                  <p>邮箱地址（不许更改）</p>
+                  <div>
+                    <input
+                      type="text"
+                      disabled
+                      class="form-control"
+                      ng-model="profileCtrl.formOBJ.email"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <p>昵称</p>
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      ng-model="profileCtrl.formOBJ.name"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <p>头像</p>
+                  <div>
+                    <img src="/images/default_avatar.png" alt="" />
+                  </div>
+                  <div>
+                    <input
+                      type="file"
+                      nv-file-select
+                      uploader="profileCtrl.uploader"
+                      id="file"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <input
+                    type="button"
+                    value="确认更改"
+                    class="btn btn-success"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <div ng-if="profileCtrl.idx == 1">
+            <div class="row">
+              <div class="col-lg-6">
+                <p>原始密码</p>
+                <div>
+                  <input type="text" required class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <p>新密码</p>
+                <div>
+                  <input type="text" required class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <input type="button" value="确认更改" class="btn btn-success" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

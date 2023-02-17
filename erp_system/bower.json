@@ -1,0 +1,26 @@
+{
+  "name": "erp_system",
+  "authors": [
+    "ponzio-l <ponzio.lin@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "^2.3.6",
+    "angular": "^1.5.8",
+    "angular-ui-router": "^1.0.30",
+    "angular-async-loader": "^1.0.1",
+    "jquery": "^3.6.3",
+    "jquery-ui": "^1.10.2"
+  }
+}

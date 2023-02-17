@@ -1,0 +1,48 @@
+<div class="loginPage-father">
+  <div class="loginPage-son">
+    <div class="row">
+      <div class="col-lg-6">
+        <form name="loginForm">
+          <p>
+            <input
+              type="text"
+              required
+              class="form-control"
+              name="email"
+              placeholder="邮箱地址"
+              ng-model="loginCtrl.loginFormOBJ.email"
+              ng-pattern="/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/"
+              ng-blur="loginCtrl.checkEmail()"
+              ng-focus="loginCtrl.showEmailErrTip=false"
+            />
+          </p>
+          <p
+            class="alert alert-danger alert-small"
+            ng-show="loginCtrl.showEmailErrTip"
+          >
+            {{loginCtrl.emailErrTip}}
+          </p>
+          <p>
+            <input
+              type="password"
+              required
+              class="form-control"
+              name="password"
+              placeholder="密码"
+              ng-model="loginCtrl.loginFormOBJ.password"
+            />
+          </p>
+          <p>
+            <input
+              type="button"
+              class="btn btn-success"
+              value="立即登录"
+              ng-disabled="loginForm.$invalid"
+              ng-click="loginCtrl.doLogin()"
+            />
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

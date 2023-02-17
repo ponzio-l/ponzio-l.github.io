@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-controller="MainCtrl as mainCtrl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{mainCtrl.getTitle()}} - 化工外贸ERP系统</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/bootstrap/css/bootstrap.min.css"
+    />
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/passwordStrengthBar.css" />
+    <link rel="stylesheet" href="css/root.css" />
+    <link rel="stylesheet" href="css/registPage.css" />
+    <link rel="stylesheet" href="css/loginPage.css" />
+    <link rel="stylesheet" href="css/profilePage.css" />
+  </head>
+  <body>
+    <ui-view></ui-view>
+    <!-- <script
+      type="text/javascript"
+      src="/assets/jquery/dist/jquery.min.js"
+    ></script> -->
+    <script
+      type="text/javascript"
+      src="/assets/requirejs/require.js"
+      data-main="bootstrap.js"
+    ></script>
+  </body>
+</html>

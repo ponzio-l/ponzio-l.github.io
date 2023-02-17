@@ -1,0 +1,13 @@
+.profilePage-father {
+  position: relative;
+}
+
+.profilePage-son {
+  position: relative;
+  left: 25%;
+  margin-top: 100px;
+}
+
+.profilePage-son .tab-content {
+  margin: 20px;
+}

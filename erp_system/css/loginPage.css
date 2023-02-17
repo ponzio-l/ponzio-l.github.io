@@ -1,0 +1,9 @@
+.loginPage-father {
+  position: relative;
+}
+
+.loginPage-son {
+  position: relative;
+  left: 25%;
+  margin-top: 200px;
+}

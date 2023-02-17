@@ -1,0 +1,119 @@
+<div class="registPage-father">
+  <div class="registPage-son">
+    <div class="row">
+      <div class="col-lg-6">
+        <form name="registForm">
+          <p>
+            <input
+              type="text"
+              required
+              class="form-control"
+              name="username"
+              placeholder="昵称"
+              ng-model="registCtrl.registFormOBJ.username"
+            />
+          </p>
+          <p>
+            <input
+              type="text"
+              required
+              class="form-control"
+              name="email"
+              placeholder="邮箱地址"
+              ng-model="registCtrl.registFormOBJ.email"
+              ng-pattern="/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/"
+              ng-blur="registCtrl.checkEmail()"
+              ng-focus="registCtrl.showEmailErrTip=false"
+            />
+          </p>
+          <p
+            class="alert {{registCtrl.emailTipType}} alert-small"
+            ng-show="registCtrl.showEmailErrTip"
+          >
+            {{registCtrl.emailErrTip}}
+          </p>
+          <p ng-show="registCtrl.isExist">对不起，该邮箱已被注册</p>
+          <div class="row" style="margin-bottom: 10px">
+            <div class="col-lg-8">
+              <input
+                type="text"
+                required
+                class="form-control"
+                name="identifyingCode"
+                placeholder="请输入验证码"
+                ng-model="registCtrl.registFormOBJ.identifyingCode"
+                ng-blur="registCtrl.checkIdentifyingCodeSame()"
+                ng-focus="registCtrl.showIdentifyingCodeUnsameTip=false"
+              />
+            </div>
+            <div class="col-lg-4">
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="发送验证码"
+                ng-disabled="registCtrl.cannotSend"
+                ng-click="registCtrl.sendIdentifyingCode()"
+              />
+            </div>
+          </div>
+          <p
+            class="alert {{registCtrl.identifyingCodeType}} alert-small"
+            ng-show="registCtrl.showIdentifyingCodeUnsameTip"
+          >
+            {{registCtrl.identifyingCodeTip}}
+          </p>
+          <p>
+            <input
+              type="password"
+              required
+              class="form-control"
+              name="password"
+              placeholder="密码，不少于6位"
+              ng-model="registCtrl.registFormOBJ.password"
+              ng-blur="registCtrl.checkPasswordStrength();registCtrl.checkPasswordSame()"
+              ng-focus="registCtrl.showPasswordStrengthTip=false"
+            />
+          </p>
+          <p
+            class="alert alert-danger alert-small"
+            ng-show="registCtrl.showPasswordStrengthTip"
+          >
+            对不起，密码强度不够
+          </p>
+          <p>
+            <password-strength-bar
+              strength="{{registCtrl.getStrength()}}"
+            ></password-strength-bar>
+          </p>
+          <p>
+            <input
+              type="password"
+              required
+              class="form-control"
+              name="password2"
+              placeholder="确认密码，不少于6位"
+              ng-model="registCtrl.registFormOBJ.password2"
+              ng-blur="registCtrl.checkPasswordSame()"
+              ng-focus="registCtrl.showPasswordUnsameTip=false"
+            />
+          </p>
+          <p
+            class="alert alert-danger alert-small"
+            ng-show="registCtrl.showPasswordUnsameTip"
+          >
+            对不起，两次输入的密码不一致
+          </p>
+          <p>
+            <input
+              type="button"
+              class="btn btn-success"
+              value="立即注册"
+              ng-disabled="registForm.$invalid || registCtrl.passwordStrength < 3 || registCtrl.registFormOBJ.password != registCtrl.registFormOBJ.password2"
+              ng-click="registCtrl.doRegist()"
+            />
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+.root a {
+  text-decoration: none;
+}
+
+.root .navbar .container-fluid li {
+  margin-left: 10px;
+}
+
+.root footer {
+  clear: both;
+  display: block;
+  text-align: center;
+  margin: 0px auto;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+.root body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+.root .main-sidebar {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.root .main-sidebar .d-flex {
+  height: 100%;
+  position: fixed;
+}
+.root .bi {
+  vertical-align: -0.125em;
+  pointer-events: none;
+  fill: currentColor;
+}
